@@ -48,30 +48,13 @@ gg
 # How much does the average carbon footprint increase 
 # with every passing year, according to your model’s beta coeficient?
 
-m = sm.formula.ols(formula = 'footprint ~ year', data = avg).fit()
-m.summary()
-
-# The average Japanese city was projected to produce -307.27 kilotons
-# of carbon emissions per 1000 residents in the year CE. 
-# With every passing year, the average carbon footprint increases
-# by 0.16 kilotons per 1000 residents.
 
 
 # Task 2: Model Fit ################################
 
 # Examine the model table, using summary().
 # How likely is it that these two statistics were just that extreme by chance?
-m = sm.formula.ols(formula = 'footprint ~ year', data = avg).fit()
-m.summary()
 
-# The alpha coefficient, -307.27, was so extreme that there is 
-# just a 0.036 probability (3.6% chance) that this statistic 
-# occurred due to chance. 
-# The effect of each year (beta = 0.16) 
-# was so extreme that there is just a 0.031 probability (3.1% chance)
-# that this statistic occurred due to chance. 
-# Both effects are therefore statistical significant
-# at the p < 0.05 level.
 
 
 # Task 3: Model Fit ###################################
@@ -81,18 +64,7 @@ m.summary()
 # does it explain? Does it fit better than an intercept model? 
 # Is this model’s F statistic statistically significant? 
 # How do you know?
-m = sm.formula.ols(formula = 'footprint ~ year', data = avg).fit()
-m.summary()
 
-# This model explained 39% of the variation 
-# in average carbon footprints (R2 = 0.39). 
-# It fits much better than an intercept model, 
-# according to its F-statistic value of ``6.26. 
-# In fact, there’s just a 0.031 probability (3.1% chance)
-# that this statistic occurred due to chance, 
-# so we can be at least 96.9% confident that this statistic did not 
-# occur due to chance. 
-# This model has a statistically significant fit.
 
 
 # Cleanup #############################

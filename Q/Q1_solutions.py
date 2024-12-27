@@ -1,4 +1,4 @@
-# Q1_code.R
+# Q1_code.py
 # Exercise: Modeling Carbon Footprints in Japanese Cities
 # Prof. Tim Fraser
 
@@ -8,32 +8,33 @@
 # carbon footprint is measured as tons of emissions per 1000 residents,
 # for just cities where anyone lives.
 
+
 # install packages:
-# install.packages(c("dplyr", "readr", "ggplot2", "broom"))
+# !pip install pandas
+# !pip install statsmodels
 
-# Load packages
-library(dplyr)
-library(readr)
-library(ggplot2)
-library(broom)
-
+# load packages:
+import pandas as pd
+import statsmodels.api as sm
+from plotnine import *
 
 # Import data
-avg = read_csv("Q/avg_annual_footprint.csv")
+avg = pd.read_csv("Q/avg_annual_footprint.csv")
 
 
 # Plot the raw data, using geom_point() and geom_line(). 
 # What do we observe?
-gg = ggplot() +
-  geom_point(data = avg, mapping = aes(x = year, y = footprint)) +
-  geom_line(data = avg, mapping = aes(x = year, y = footprint))
+gg = ( ggplot() +
+  geom_point(data = avg, mapping = aes(x = 'year', y = 'footprint')) +
+  geom_line(data = avg, mapping = aes(x = 'year', y = 'footprint')) )
 
+gg
 
 # Plot a line of best fit with ggplot() over it, using geom_smooth()
 # What is the overall trend?
-gg +
-  geom_smooth(data = avg, mapping = aes(x = year, y = footprint), 
-              method = "lm", se = FALSE)
+(gg +
+  geom_smooth(data = avg, mapping = aes(x = 'year', y = 'footprint'), 
+              method = "lm", se = False) )
 
 
 
@@ -41,12 +42,14 @@ gg +
 # Task 1: Modeling #################################
 
 # Calculate the model equation for that line of best fit, 
-# using your dataframe avg and the lm() function.
+# using your dataframe avg and the ols(...).fit() function.
 # What rate of emissions was an average Japanese city projected
 # to produce in the year 0 CE? 
 # How much does the average carbon footprint increase 
 # with every passing year, according to your model’s beta coeficient?
 
+m = sm.formula.ols(formula = 'footprint ~ year', data = avg).fit()
+m.summary()
 
 # The average Japanese city was projected to produce -307.27 kilotons
 # of carbon emissions per 1000 residents in the year CE. 
@@ -56,8 +59,10 @@ gg +
 
 # Task 2: Model Fit ################################
 
-# Examine the model table, using summary() or broom::tidy().
+# Examine the model table, using summary().
 # How likely is it that these two statistics were just that extreme by chance?
+m = sm.formula.ols(formula = 'footprint ~ year', data = avg).fit()
+m.summary()
 
 # The alpha coefficient, -307.27, was so extreme that there is 
 # just a 0.036 probability (3.6% chance) that this statistic 
@@ -71,12 +76,13 @@ gg +
 
 # Task 3: Model Fit ###################################
 
-# Evaluate this model, using summary() or broom::glance().
+# Evaluate this model, using summary().
 # What percentage of variation in average carbon footprints
 # does it explain? Does it fit better than an intercept model? 
 # Is this model’s F statistic statistically significant? 
 # How do you know?
-
+m = sm.formula.ols(formula = 'footprint ~ year', data = avg).fit()
+m.summary()
 
 # This model explained 39% of the variation 
 # in average carbon footprints (R2 = 0.39). 
@@ -87,9 +93,10 @@ gg +
 # so we can be at least 96.9% confident that this statistic did not 
 # occur due to chance. 
 # This model has a statistically significant fit.
+
+
+# Cleanup #############################
+globals().clear()
+
   
-
-
-
-
 

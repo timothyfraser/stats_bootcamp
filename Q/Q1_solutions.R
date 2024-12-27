@@ -48,6 +48,7 @@ gg +
 # with every passing year, according to your model’s beta coeficient?
 
 
+avg %>% lm(formula = footprint ~ year)
 # The average Japanese city was projected to produce -307.27 kilotons
 # of carbon emissions per 1000 residents in the year CE. 
 # With every passing year, the average carbon footprint increases
@@ -58,6 +59,7 @@ gg +
 
 # Examine the model table, using summary() or broom::tidy().
 # How likely is it that these two statistics were just that extreme by chance?
+avg %>% lm(formula = footprint ~ year) %>% broom::tidy()
 
 # The alpha coefficient, -307.27, was so extreme that there is 
 # just a 0.036 probability (3.6% chance) that this statistic 
@@ -77,6 +79,7 @@ gg +
 # Is this model’s F statistic statistically significant? 
 # How do you know?
 
+avg %>% lm(formula = footprint ~ year) %>% broom::glance()
 
 # This model explained 39% of the variation 
 # in average carbon footprints (R2 = 0.39). 
@@ -87,8 +90,6 @@ gg +
 # so we can be at least 96.9% confident that this statistic did not 
 # occur due to chance. 
 # This model has a statistically significant fit.
-  
-
 
 
 
