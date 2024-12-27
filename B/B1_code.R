@@ -3,24 +3,23 @@
 
 
 # This tutorial will introduce you to how to code
-# and analyze distributions in Python using descriptive statistics.
+# and analyze distributions in R using descriptive statistics.
 
+  
 # Getting Started ##########################
 
 # Please open up this script in your preferred computing environment;
 # I recommend a Posit.Cloud project or (for Python only) Google Colabs.
 
-# Load packages
-import pandas as pd # Import pandas functions
-import os
-import sys
-
 
 # Our Data ####################
 
+# We'll be looking at a vector of seawalls from 10 cities,
+# measuring the height of each seawall.
 
-# You could code it as a vector, save it as an object, then use your functions!
-sw = pd.Series([4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4])
+# You could code it as a vector, 
+# save it as an object, then use your functions!
+sw = c(4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4)
 # View it
 sw
 
@@ -58,7 +57,7 @@ sw
 ## Length ##########################
 
 # How big is our sample?
-len(sw)
+length(sw)
 
 # Location #######################
 
@@ -68,11 +67,15 @@ len(sw)
 
 
 ## Mean #######################
-sw.mean()
+mean(sw)
 ## Median ########################
-sw.median()
+median(sw)
 ## Mode ########################
-sw.mode()
+mode(sw) # just kidding! R doesn't have a mode() function.
+# But you could use this custom function I wrote instead; with some exceptions, it'll work in most cases.
+mode = function(x){ as.numeric(names(sort(table(sw), decreasing = TRUE))[1]) }
+mode(sw)
+
 
 # Spread (1) ###########################
 
@@ -81,12 +84,12 @@ sw.mode()
 
 # What are the most extreme values?
 # Percentiles
-sw.quantile(q = 0) # min
-sw.quantile(q = 1) # max
+quantile(sw, probs = 0) # min
+quantile(sw, probs = 1) # max
 
 # Where do the middle-most 50% of values lie?
-sw.quantile(q = .25) # 25th percentile
-sw.quantile(q = .75) # 75th percentile
+quantile(sw, probs = .25) # 25th percentile
+quantile(sw, probs = .75) # 75th percentile
 
 
 
@@ -100,18 +103,18 @@ sw.quantile(q = .75) # 75th percentile
 # the standard deviation, often abbreviated as  
 # σ (sigma)
 
-x = (sw - sw.mean())**2 # get squared deviations from mean
-x = x.sum() # get sum
-x = x / (len(sw) - 1) # divide by length - 1
-x = x**0.5 # square root
+x = (sw - mean(sw))^2 # get squared deviations from mean
+x = sum(x) # get sum
+x = x / (length(sw) - 1) # divide by length - 1
+x = x^0.5 # square root
 
 x # view it
 
 # Or, much more quickly...
-sw.std()
+sd(sw)
 
 # Remove x
-del x
+remove(x)
 
 
 
@@ -121,9 +124,9 @@ del x
 # which is the standard deviation squared.
 # This accentuates large deviations in a sample.
 
-sw.var()
+var(sw)
 
-sw.std()**2 # same!
+sd(sw)^2 # same!
 
 
 ## Coefficient of Variation (CV) ###############
@@ -138,7 +141,7 @@ sw.std()**2 # same!
 
 # How many times does the mean fit into the standard deviation?
 # How great a share of the mean does that average variation constitute?
-sw.std() / sw.mean()
+sd(sw) / mean(sw)
 
 # The standard deviation constitutes 15% of the 
 # size of the mean seawall height.
@@ -158,7 +161,7 @@ sw.std() / sw.mean()
 
 
 # sample size adjusted variance
-sw.var() / len(sw)
+var(sw) / length(sw)
 
 # This means we could take this set of seawalls and
 # compare it against samples of coastal infrastructure in Louisiana,
@@ -172,12 +175,12 @@ sw.var() / len(sw)
 
 # standard area = sample size adjusted standard deviation
 # Calculated as 
-se = sw.std() / (len(sw)**0.5)
+se = sd(sw) / (length(sw)^0.5)
 se 
 # Or as:
-(sw.std()**2 / len(sw) )**0.5
+(sd(sw)^2 / length(sw) )^0.5
 # Or as
-(sw.var() / len(sw))**0.5
+(var(sw) / length(sw))^0.5
 
 
 
@@ -200,29 +203,30 @@ se
 # In this case, we want to know, how skewed 
 # are the heights of seawalls overall compared to the mean?
   
-diff = sw - sw.mean()
-diff**3
-n = len(sw) - 1
-sigma = sw.std()
-sum(diff**3) / n
-sum(diff**3) / (n * sigma**3)
+# Get the differences from the mean
+diff = sw - mean(sw)
+diff^3
+# Get the sample-size
+# To be conservative, we'll subtract 1; this happens often in stats
+n = length(sw) - 1
+sigma = sd(sw)
+# Now, we can calculate, on average, how big are these cubed differences?
+sum(diff^3) / n
+# How big are those cubed differences in terms of standard deviations,
+# so we can compare with other samples?
+sum(diff^3) / (n * sigma^3)
 
 # We could even write ourselves a function for it
-
-def skewness(x):
-  from pandas import Series
-  x = Series(x)
-  diff = x - x.mean()
-  n = len(x) - 1
-  sigma = x.std()
-  output = sum(diff**3) / (n * sigma**3)
-  return output
+skewness = function(x){
+  n = length(x) - 1
+  diff = x - mean(x)
+  sigma = sd(sw)
+  output = sum(diff^3) / (n * sigma^3)
+  return(output)
+}
 
 # Try it!
 skewness(x = sw)
-
-# Get skewness from a pandas series
-sw.skew() # their formula differs slightly.
 
 
 ## Kurtosis  ########################
@@ -243,30 +247,28 @@ sw.skew() # their formula differs slightly.
 # taken to the 4th power; the powers in the numerator and 
 # denominator then more-or-less cancel each other out.
 
-
-diff = sw - sw.mean()
-diff**4
-n = len(sw) - 1
-sigma = sw.std()
+# Get ingredients...
+diff = sw - mean(sw)
+diff^4
+n = length(sw) - 1
+sigma = sd(sw)
+# How big are the 4th-power deviations, on average?
 sum(diff**4) / n
+# How big on average in terms of standard deviations?
 sum(diff**4) / (n * sigma**4)
 
+
 # We could even write ourselves a function for it
-def kurtosis(x):
-  from pandas import Series
-  x = Series(x)
-  diff = x - x.mean()
-  n = len(x) - 1
-  sigma = x.std()
-  output = sum(diff**4) / (n * sigma**4)
-  return output
+kurtosis = function(x){
+  n = length(x) - 1
+  diff = x - mean(x)
+  sigma = sd(sw)
+  output = sum(diff^4) / (n * sigma^4)
+  return(output)
+}
 
 # Try it!
 kurtosis(sw)
-
-# Get kurtosis from a pandas series
-sw.kurtosis() # their formula differs slightly
-sw.kurt()
 
 
 # We can measure kurtosis! A pretty normal bell curve
@@ -276,4 +278,4 @@ sw.kurt()
 # the pointier the distribution!
   
 # Cleanup ##################################
-globals().clear()
+rm(list = ls())
