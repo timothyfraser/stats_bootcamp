@@ -266,9 +266,8 @@ flights[ ['dep_delay', 'origin'] ].query('dep_delay > 4 or origin == "JFK"')
 ## LC 9 ################################################
 
 # Learning Check
-# arrange() is a very powerful function. Compare the following code chunks. 
-# What happens when you arrange by price? How does it change when we add desc(), or filter()?
-
+# sort_values() is a very powerful function. Compare the following code chunks. 
+# What happens when you arrange by departure delays? How does it change when we add ascending = False?
 
 flights[['month', 'day', 'dep_delay', 'origin']].sort_values(by='dep_delay')
 
