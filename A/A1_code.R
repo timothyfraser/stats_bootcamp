@@ -265,7 +265,8 @@ mean(mysw, na.rm = TRUE) # short for, 'remove NAs'
 
 
 
-# 7. Final pieces of advice  #######################################
+
+# 7. Removing Data  #######################################
 
 # Be sure to clear your environment often.
 # That means, using remove() or the broom tool in the upper right hand corner.
@@ -281,9 +282,48 @@ rm(list = ls())
 
 
 
+
+# 8. Reading and Writing data ###################################
+
+# To read and write data to file, we need an extra package - readr!
+# We can install and load the readr package to get access to its read_csv() and write_csv() functions.
+# To install readr, we use install.packages() one time.
+install.packages("readr")
+
+# To load readr, we use library() (every session)
+library(readr)
+
+# Let's take that sw data.frame and write it to file.
+
+# Although, we could do this too, and it would be equivalent
+sw <- data.frame(
+  # It's okay to split code across multiple lines.
+  # It keeps things readable.
+  height = c(4, 4.5, 5, 5, 5, 
+             5.5, 5.5, 6, 6.5, 6.5),
+  town = c("Gloucester", "Newburyport", "Provincetown", 
+           "Plymouth", "Marblehead", "Chatham", "Salem",
+           "Ipswich", "Falmouth", "Boston"),
+  year = c(1990, 1980, 1970, 1930, 1975, 
+           1975, 1980, 1920, 1995, 2000)) 
+
+# write the objects sw to the file path A/sw.csv
+write_csv(sw, file = "A/sw.csv")
+
+# Let's remove the object sw
+remove(sw)
+
+# Now let's read it back in and assign it to an object!
+sw = read_csv("A/sw.csv")
+
+# View it!
+sw
+
+# remove it
+remove(sw)
+
 # You'll be a rockstar at using R in no time!
 # Stay tuned for our next Workshop!
-
 
 
 
