@@ -39,7 +39,8 @@ data.groupby(['species', 'island'] ).apply(lambda df: pd.Series({ 'n': len(df.dr
 
 # Is that difference statistically significant?
 
-# Let's run the test!
+# Let's run the test using pingouin package's chi2_independence() function!
+# See Documenation: https://pingouin-stats.org/build/html/generated/pingouin.chi2_independence.html
 stat = pg.chi2_independence(data = data, x = 'species', y = 'island')
 
 
