@@ -18,7 +18,28 @@ flights
 # Get just flights in March and April
 data = flights %>% 
   filter(month == 3 | month == 4) %>%
-  select(month, day, dep_delay) 
+  select(month,dep_delay) 
+
+
+
+# Compare the differences with descriptive statistics
+data %>%
+  group_by(month) %>%
+  summarize(
+    # get mean
+    mean = mean(dep_delay, na.rm = TRUE),
+    # calculate a standard error from std. deviation and sample size
+    sd = sd(dep_delay, na.rm = TRUE),
+    n = length(dep_delay[ !is.na(dep_delay)] ),
+    se = sd / sqrt(n)
+  )
+
+
+# Looks like the month 4 had a higher average departure delay than month 3.
+# Is this difference actually statistically significant? 
+# Need t-test!
+
+
 
 # Compare group variances. Are the variances significantly different?
 var.test(dep_delay ~ month, data = data)
