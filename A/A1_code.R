@@ -3,7 +3,7 @@
 
 # New to R? Run this script first! You'll gain comfort and familiarity.
 
-# Welcome to RStudio Cloud! You made it!
+# Welcome to RStudio in Posit Cloud! You made it!
 
 
 
@@ -14,6 +14,7 @@
 # 1. 'code' - instructions to our statistical calculator
 # 2. 'comments' - any text that immediately follows a '#' sign.
 # Comments are ignored by the calculator, so we can write ourselves notes.
+
 
 # Notice: 4 windows in R.
 # Window 1 (upper left): Scripts!
@@ -89,7 +90,7 @@ sqrt(4) # Square-Roots
 
 # To name something as an object, use an arrow!
 myvalue <- 2
-
+myvalue = 2
 
 # Now let's highlight and press control enter on myvalue.
 # Notice how it's listed in the R Environment (upper right)
@@ -97,7 +98,7 @@ myvalue <- 2
 myvalue
 
 # We can do operations too
-secondvalue <- myvalue + 2 # add 2 to myvalue
+secondvalue = myvalue + 2 # add 2 to myvalue
 secondvalue # check new value - oooh, it's 4!
 
 # We can also overwrite old objects with new objects 
@@ -131,10 +132,10 @@ c(1,2,3,4) + 2 # this adds 2 to each value!
 # We can save vectors as objects too!
 
 # Here's a vector of (hypothetical) seawall heights in 10 towns.
-myheights <- c(4, 4.5, 5, 5, 5, 5.5, 5.5, 6, 6.5, 6.5)
+myheights = c(4, 4.5, 5, 5, 5, 5.5, 5.5, 6, 6.5, 6.5)
 
 # And here's a list of hypothetical names for those towns
-mytowns <- c("Gloucester", "Newburyport", "Provincetown", 
+mytowns = c("Gloucester", "Newburyport", "Provincetown", 
              "Plymouth", "Marblehead", "Chatham", "Salem", 
              "Ipswich", "Falmouth", "Boston")
 
@@ -168,13 +169,14 @@ data.frame(
 # Actually, we can make data.frames into objects too!
 
 # Let's name our data.frame about seawalls 'sw'
-sw <- data.frame(
+sw = data.frame(
   height = myheights,
   town = mytowns,
   year = myyears) # Notice this last parenthesis; very important
 
 
 sw
+
 
 sw$height
 sw$town
@@ -191,7 +193,7 @@ sw <- data.frame(
   year = c(1990, 1980, 1970, 1930, 1975, 
            1975, 1980, 1920, 1995, 2000)) 
 
-
+sw
 
 
 # Let's check out our dataframe!
@@ -244,6 +246,7 @@ sd(sw$height) # the standard deviation of seawall heights
 mysw <- c(4, 4.5, 5, 5, 5,
           5.5, 5.5, 6, 6.5, 6.5, NA) # see the 'NA' for non-applicable
 mysw
+
 # If you run mean(mysw) now, R doesn't know how to add 6.5 + NA
 # The output will become NA instead of 5.35
 mean(mysw)
@@ -306,6 +309,7 @@ sw <- data.frame(
            "Ipswich", "Falmouth", "Boston"),
   year = c(1990, 1980, 1970, 1930, 1975, 
            1975, 1980, 1920, 1995, 2000)) 
+
 
 # write the objects sw to the file path A/sw.csv
 write_csv(sw, file = "A/sw.csv")
