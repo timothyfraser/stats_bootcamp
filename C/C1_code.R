@@ -4,12 +4,16 @@
 
 # Getting Started #################################
 
+# install.packages("ggplot2")
+# install.packages("readr")
 library(ggplot2)
 library(readr)
 
 
 # Let's view it. (see console below)
 gapminder = read_csv("C/gapminder.csv")
+
+gapminder
 
 # Nice, we can see things more concisely.
 
@@ -27,6 +31,7 @@ min(gapminder$year); max(gapminder$year)
 length(unique(gapminder$country))
 
 
+
 # Your First Histogram with ggplot() ####################
 
 # For a nice, customizable histogram,
@@ -34,11 +39,12 @@ length(unique(gapminder$country))
 
 # We start with a blank plot with ggplot(), then we add (+) another layer using a geom_ function.
 ggplot()
+
 # We made an empty graph!
 
 # In this case, let's add geom_histogram() to overlay a histogram
 ggplot() +
-  geom_histogram(data = gapminder, mapping = aes(x = lifeExp))
+  geom_histogram(data = gapminder, mapping = aes( x = lifeExp ))
 
 
 
@@ -54,6 +60,8 @@ ggplot() +
 ggplot() +
   geom_histogram(data = gapminder, mapping = aes(x = lifeExp), 
                  alpha = 1)
+
+
 
 
 # We can make it more visually appealing. How would we adjust color?
@@ -75,6 +83,9 @@ ggplot() +
 # Looks like putting the name 'steelblue' INSIDE the aes() makes steelblue the name of a category,
 # but putting the name 'steelblue' OUTSIDE the aes() makes the color steelblue.
 
+# check it out!
+colors()
+
 # Finishing the Visual ###############################################
 
 ggplot() +
@@ -90,6 +101,8 @@ ggplot() +
        title = "Distribution of Life Expectancy",
        subtitle = "in 142 countries, 1952 - 2007",
        caption = "Source: gapminder dataset.")
+
+
 
 
 # Density Curves (function of the histogram) #################
@@ -115,6 +128,8 @@ ggplot() +
        caption = "Source: gapminder dataset.")
 
 
+
+
 # Boxplots (summary statistics of distribution) ##################
 
 # Alternatively, we could use boxplots to summarize this data across groups, describing:
@@ -126,6 +141,8 @@ ggplot() +
   geom_boxplot(data = gapminder, mapping = aes(x = lifeExp, y = continent))
 
 
+
+
 # A polished visual might look like this, customizing the color, fill, and labels
 ggplot() +
   geom_boxplot(
@@ -135,7 +152,7 @@ ggplot() +
   ) +
   # Add labels to aesthetics with labs()
   labs(x = "Life Expectancy (years)",
-       y = "Probability (density)",
+       y = "Continent (n = 5)",
        title = "Distribution of Life Expectancy",
        subtitle = "in 142 countries, 1952 - 2007",
        caption = "Source: gapminder dataset.")

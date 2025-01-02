@@ -12,8 +12,6 @@
 
 # Load packages
 import pandas as pd # Import pandas functions
-import os
-import sys
 
 
 # Our Data ####################
@@ -60,6 +58,8 @@ sw
 # How big is our sample?
 len(sw)
 
+
+
 # Location #######################
 
 # Where is our sample clustered? 
@@ -74,6 +74,9 @@ sw.median()
 ## Mode ########################
 sw.mode()
 
+
+
+
 # Spread (1) ###########################
 
 # Spread: How much does our sample vary?
@@ -83,6 +86,11 @@ sw.mode()
 # Percentiles
 sw.quantile(q = 0) # min
 sw.quantile(q = 1) # max
+
+sw.min()
+sw.max()
+sw.quantile(q = .50)
+
 
 # Where do the middle-most 50% of values lie?
 sw.quantile(q = .25) # 25th percentile
@@ -124,6 +132,7 @@ del x
 sw.var()
 
 sw.std()**2 # same!
+
 
 
 ## Coefficient of Variation (CV) ###############
@@ -170,7 +179,7 @@ sw.var() / len(sw)
 # to use the sample-size adjusted standard deviation, 
 # more commonly known as the standard error, or se.
 
-# standard area = sample size adjusted standard deviation
+# standard error = sample size adjusted standard deviation
 # Calculated as 
 se = sw.std() / (len(sw)**0.5)
 se 
@@ -218,6 +227,7 @@ def skewness(x):
   output = sum(diff**3) / (n * sigma**3)
   return output
 
+
 # Try it!
 skewness(x = sw)
 
@@ -250,6 +260,7 @@ n = len(sw) - 1
 sigma = sw.std()
 sum(diff**4) / n
 sum(diff**4) / (n * sigma**4)
+
 
 # We could even write ourselves a function for it
 def kurtosis(x):
