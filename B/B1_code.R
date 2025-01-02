@@ -20,6 +20,7 @@
 # You could code it as a vector, 
 # save it as an object, then use your functions!
 sw = c(4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4)
+
 # View it
 sw
 
@@ -68,12 +69,15 @@ length(sw)
 
 ## Mean #######################
 mean(sw)
+
 ## Median ########################
 median(sw)
+
 ## Mode ########################
 mode(sw) # just kidding! R doesn't have a mode() function.
+
 # But you could use this custom function I wrote instead; with some exceptions, it'll work in most cases.
-mode = function(x){ as.numeric(names(sort(table(sw), decreasing = TRUE))[1]) }
+mode = function(x){ as.numeric(names(sort(table(x), decreasing = TRUE))[1]) }
 mode(sw)
 
 
@@ -86,6 +90,9 @@ mode(sw)
 # Percentiles
 quantile(sw, probs = 0) # min
 quantile(sw, probs = 1) # max
+
+min(sw)
+max(sw)
 
 # Where do the middle-most 50% of values lie?
 quantile(sw, probs = .25) # 25th percentile
@@ -147,6 +154,7 @@ sd(sw) / mean(sw)
 # size of the mean seawall height.
 
 
+
 ## Standard Error (SE) ###########################
 
 # But these numbers don’t have much meaning to us, 
@@ -163,6 +171,7 @@ sd(sw) / mean(sw)
 # sample size adjusted variance
 var(sw) / length(sw)
 
+
 # This means we could take this set of seawalls and
 # compare it against samples of coastal infrastructure in Louisiana,
 # in Japan, in Australia, and make meaningful comparisons,
@@ -173,9 +182,10 @@ var(sw) / length(sw)
 # to use the sample-size adjusted standard deviation, 
 # more commonly known as the standard error, or se.
 
-# standard area = sample size adjusted standard deviation
+# standard error = sample size adjusted standard deviation
 # Calculated as 
 se = sd(sw) / (length(sw)^0.5)
+se = sd(sw) / sqrt(length(sw))
 se 
 # Or as:
 (sd(sw)^2 / length(sw) )^0.5
@@ -224,6 +234,7 @@ skewness = function(x){
   output = sum(diff^3) / (n * sigma^3)
   return(output)
 }
+
 
 # Try it!
 skewness(x = sw)
