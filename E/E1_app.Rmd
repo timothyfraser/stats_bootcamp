@@ -1,0 +1,725 @@
+---
+title: "Sampling and Confidence Intervals"
+subtitle: "Measuring Environmental Racism in US Counties"
+author: "(Timothy Fraser)"
+runtime: shiny
+output: 
+  rmdformats::readthedown:
+    fig_height: 12
+    theme:
+      version: 4
+      bootswatch: journal
+      primary: "#49C1AD"
+      base_font: !expr bslib::font_google("Prompt")
+      code_font: !expr bslib::font_google("JetBrains Mono")
+    orientation: rows
+    social: menu
+    source_code: embed
+    navbar:
+      - { title: "Home", href: "https://www.timothyfraser.com/", align: right, icon: fa-home }
+---
+
+
+<style>
+
+p {
+    font-size: 24px;
+    line-height: 1.15em;
+    margin: 0px 0px 24px 0px;
+}
+
+pre > code.sourceCode > span {
+    display: inline-block;
+    line-height: 1.25;
+    font-size: 19px;
+}
+
+#main ul li, #content .toctree-wrapper ul li, article ul li {
+    list-style: disc;
+    margin-left: 24px;
+    font-size: 24px;
+    line-height: 1.15em;
+    margin-bottom: 0.75em;
+}
+
+h1, h2, h3, h4, h5, h6, legend {
+    font-size: 28px;
+    line-height: 1.15em;
+    font-family: Arial, sans-serif;
+    font-weight: 1400;
+    color: #9F2042;
+}
+
+h1.title {
+    font-size: 40px;
+    line-height: 1.15em;
+    font-family: Arial, sans-serif;
+    font-weight: 1400;
+    color: #9F2042;
+
+}
+
+h1.subtitle {
+    font-size: 30px;
+    line-height: 1.15em;
+    font-family: Arial, sans-serif;
+    font-weight: 1400;
+    color: #9F2042;
+
+}
+
+#sidebar h2 a {
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 1.15em;
+    text-decoration: none;
+}
+
+#toc li a{
+    font-size: 20px;
+    line-height: 1.15em;
+    
+}
+.btn-secondary, .btn-default:not(.btn-primary):not(.btn-info):not(.btn-success):not(.btn-warning):not(.btn-danger):not(.btn-dark):not(.btn-outline-primary):not(.btn-outline-info):not(.btn-outline-success):not(.btn-outline-warning):not(.btn-outline-danger):not(.btn-outline-dark), .btn-warning {
+    color: #fff;
+    font-size: larger;
+}
+#postamble .author {
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+
+.selectize-control.single .selectize-input, .selectize-control.single .selectize-input input {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.selectize-input {
+    font-size: 20px;
+    min-height: calc(1.5em + 0.75rem + 2px);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+label {
+    display: block;
+    margin: 0 0 0.3125em 0;
+    color: #333;
+    font-size: 20px;
+}
+
+irs--shiny .irs-min, .irs--shiny .irs-max {
+    top: 0;
+    padding: 1px 3px;
+    text-shadow: none;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    font-size: 20px;
+    line-height: 1.333;
+}
+
+
+.irs--shiny .irs-grid-text {
+    bottom: 5px;
+    font-size: 20px;
+}
+
+
+.irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single {
+    color: #000;
+    text-shadow: none;
+    padding: 1px 3px;
+    background-color: #49C1AD;
+    border-radius: 3px;
+    font-size: 18px;
+    line-height: 1.333;
+}
+
+
+#main table thead th {
+    font-weight: bold;
+    font-size: 20px;
+    border-top: 1px solid #ddd;
+    border-bottom: 2px solid #ddd;
+}
+
+table.dataTable td, table.dataTable th {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    font-size: 18px;
+}
+
+#main .nav-tabs a {
+    padding: 10px 15px;
+    font-size: 24px;
+    background: none;
+    transition: none;
+    color: #888;
+}
+
+body {
+    background: #edf0f2;
+    color: #404040;
+    font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+    margin: 0;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+.striped tr:nth-child(even) { background: #eee; }
+
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE, message=FALSE, warning=TRUE}
+library(tidyverse)
+library(infer)
+library(rmdformats)
+library(shiny)
+library(viridis)
+library(knitr)
+
+mycolors <- viridis::plasma(n = 5, begin = 0.2, end = 0.8)
+
+# Please load our main packages
+library(dplyr) # data wrangling
+library(readr) # reading data
+library(ggplot2) # visualization
+library(infer) # inferential statistics
+library(viridis) # colors!
+
+# Load data
+counties <- read_csv("environmental_health.csv")
+
+```
+
+
+```{r, echo = FALSE, eval = FALSE, include = FALSE}
+read_csv("county_dataset.csv") %>% 
+  mutate(urban = if_else(urban == "urbanized_area", "Urbanized Area", "Rural Area")) %>%
+  mutate(party = if_else(democrat_2016 > republican_2016, "Democrat", "Republican"),
+         wealth = if_else(median_income > median(median_income), "Above Median", "Below Median")) %>%
+  mutate(poc = if_else(condition = pop_black >= .30, true = "High", false = "Low")) %>%
+  select(county, fips, state, air_pollution, pop_black, poc, urban, party, wealth)  %>%
+  mutate_at(vars(pop_black),
+            funs(round(., 2))) %>%
+  write_csv("environmental_health.csv")
+```
+
+# 0. Introduction
+
+This workshop examines sampling and confidence intervals, drawing from an investigation into environmental justice issues.
+
+<br>
+
+## Data & Variables {.tabset .tabset-fade .tabset-pills}
+
+### Background
+
+The ***University of Wisconsin's County Health Rankings dataset*** measures all 3142 US counties in 2020 in terms of key indicators of health. Public health officials and social epidemiologists commonly agree today that communities of color overwhelmingly face worse health outcomes due to environmental problems, in which city, state, and federal government policies led to the siting of polluting and hazardous waste facilities disproportionately in the backyards of Black, Hispanic, and Native American communities. For more information, see Dorceta Taylor's book on the subject, *Toxic Communities: Environmental Racism, Industrial Pollution, and Residential Mobility.* 
+
+To investigate the burden of environmental pollution on health, we're going to investigate this dataset, measuring the role of environmental racism on black communities in terms of air pollution. This dataset is available [on Github here](https://github.com/timothyfraser/stats_bootcamp/tree/main/E/environmental_health.csv).
+
+### Preview Data
+
+Below are 3 rows from our `environmental_health.csv` dataset. In this dataset, each row is a `county` in a `state` with a unique `fips` code. 
+
+```{r, echo = FALSE}
+counties %>% head(3) %>% knitr::kable()
+```
+
+### Codebook
+
+Below is a codebook of the key measures recorded for each county.
+
+- `air_pollution`: Average daily density of fine particulate matter in micrograms per cubic meter (PM2.5), provided by the Environmental Public Health Tracking Network.
+
+- `pop_black`: percentage of population who are Black.
+
+- `poc`: dichotomous variable showing whether 30% or more of county residents are black ("High") or less than 30% of residents are black ("Low")
+
+- `urban`: dichotomous variable showing whether county is a continuously built-up area with a population of 50,000 or more ("Urbanized Area") or not ("Rural Area"), according to the US Census.
+
+- `party`: dichotomous variable, showing whether residents voted primarily for Clinton in ("Democrat") or Trump ("Republican") in the 2016 election.
+
+- `wealth`: dichotomous variable, showing whether the median household income in a county is above the national average ("Above Median") or below the national average ("Below Median").
+
+
+<br>
+<hr>
+<br>
+
+# 1. Sampling Distributions
+
+It can be really hard to measure air pollution, health, and demographics across the entire country, so researchers might first select *a sample of counties* to survey residents in first. How do they know their sample will be ***representative***, accurately reflecting the traits of the population?
+
+We can take a **random sample.** This means *each observation has an equal chance of being selected.* 
+
+But does this really work? Are random samples really representative of the population? Let's find out.
+
+<br>
+<br>
+
+## Random Sampling
+
+<br>
+
+Press the **Get Random Sample** button to take a random sample, then examine the plot it makes above. It calculates mean air pollution for our groups in each sample. Look at the legend. We'll break down each part of the legend in the next tabs.
+
+```{r, echo = FALSE}
+actionButton("getrandomsample", "Get Random Sample")
+```
+
+```{r, echo = FALSE}
+newsample <- eventReactive(input$getrandomsample, {
+  counties %>%
+    sample_n(size = input$sample_size, replace = FALSE)
+})
+```
+
+
+```{r, echo = FALSE}
+sliderInput(inputId = "number_of_samples",
+            label = "# of Samples",
+            min = 50, max = 1000, 
+            step = 50, ticks = TRUE, width = "100%", 
+            value = 50)
+```
+
+```{r, echo = FALSE}
+# Design a nice slider for sample size
+sliderInput(inputId = "sample_size",
+            label = "# of Counties Sampled",
+            min = 50, max = 1000, 
+            step = 50, ticks = TRUE, width = "100%", 
+            value = 50)
+
+```
+
+
+```{r, echo = FALSE}
+sliderInput(inputId = "ci",
+            label = "Level of Confidence",
+            min = 0, max = 100, step = 5, ticks = TRUE, width = "100%", 
+            value = 95)
+```
+
+
+
+```{r, echo = FALSE}
+mysample <- reactive({
+  
+  counties %>%
+    moderndive::rep_sample_n(size = input$sample_size, 
+                             reps = input$number_of_samples, replace = TRUE) 
+})
+```
+
+```{r, echo = FALSE}
+mystats <- reactive({
+  mysample() %>%
+    group_by(replicate, poc) %>%
+    summarize(estimate = mean(air_pollution, na.rm = TRUE)) %>%
+    ungroup()
+})
+```
+
+```{r, echo = FALSE}
+result <- reactive({
+  bind_rows(
+    # Run t-test on just counties with more than 30% black residents
+    newsample() %>%
+      filter(poc == "High") %>%
+      t_test(response = air_pollution, mu = pop_high$estimate, conf_level = input$ci / 100) %>%
+      mutate(poc = "High"),
+    # Run t-test on just counties with less than 30% black residents
+    newsample() %>%
+      filter(poc == "Low") %>%
+      t_test(response = air_pollution, mu = pop_low$estimate, conf_level = input$ci / 100) %>%
+      mutate(poc = "Low")
+  )
+})
+```
+
+
+```{r, echo = FALSE}
+# We're going to bind together the population and sample t-test results
+mydata <- reactive({
+  bind_rows(pop %>%
+              mutate(type = "Population\nMean"),
+            result() %>%
+              mutate(type = "Sample\nMean"))
+})
+```
+
+```{r, echo = FALSE}
+renderPlot({
+
+  # Get p-values for each test
+  p_high <- result() %>%
+    filter(poc == "High")
+  p_low <- result() %>%
+    filter(poc == "Low")
+  myci <- paste(input$ci, "% Confidence\nInterval", sep = "")
+  mysize <- paste(input$number_of_samples, " Samples of\n", input$sample_size, " counties", sep = "")
+  
+  # And make a plot!
+  ggplot(data = mystats(),
+         mapping = aes(x = estimate, 
+                       fill = mysize)) +
+    # Make a dotplot histogram
+    geom_density(mapping = aes(y =..count..), color = "white", size = 1.5) +
+    # Make a confidence interval
+    geom_rect(data = mydata(), 
+              mapping = aes(xmin = lower_ci, xmax = upper_ci, 
+                            ymin = 0, ymax = Inf, 
+                            fill = myci, group = poc, 
+                            x = NA_real_, y = NA_real_),
+              alpha = 0.4) +
+    # Add lines for population and sample
+    geom_vline(data = mydata(), mapping = aes(xintercept = estimate, color = type), 
+               size = 3, linetype = c("solid", "solid",  "dashed","dashed"), alpha = 0.95) +
+    scale_color_manual(values = c("black", mycolors[3]), 
+                       breaks = c("Population\nMean", "Sample\nMean") ) +
+    scale_fill_manual(values = c("darkgrey", mycolors[3]),
+                      breaks = c(mysize,myci)) +
+    xlim(myvalues) +
+    theme_bw(base_size = 20) +
+    theme(legend.position = "bottom",
+          legend.spacing = unit(0, "cm"),
+          #legend.margin = margin(0,0,0,0, "cm"),
+          legend.box = "vertical",
+          panel.grid.minor = element_blank(),
+        #  axis.text = element_text(size = 20),
+        #  strip.text = element_text(size = 20),
+         # legend.text = element_text(size = 25, hjust = 0.5),
+          plot.subtitle = element_text(hjust = 0.5)) +
+    labs(color = NULL, fill = NULL, linetype = NULL,
+         subtitle = "Average Air Pollution in US Counties",
+         x = "Air Pollution\n(micrograms of PM2.5 per cubic meter)", y = "Frequency (% of Samples)") +
+    # Define the order
+    guides(
+      color = guide_legend(order = 1),
+      fill = guide_legend(order = 2, override.aes = list(alpha = c(0.95, 0.4))),
+      linetype = guide_legend(order = 3)) + 
+    scale_y_continuous(breaks = NULL, labels = c("0%", "100%")) +
+    # Split into grid by rates of Black residents
+    facet_wrap(~poc, nrow = 2, labeller = as_labeller(
+      c(`High` = paste("High (Over 30% Black Residents)", 
+                       "\nChance just due to Sampling Error: ", 
+                       round(p_high$p_value*100, 0), "%", sep = ""),
+        `Low` = paste("Low (Less than 30% Black Residents)",
+                      "\nChance just due to Sampling Error: ",
+                      round(p_low$p_value*100, 0), "%", sep = ""))))
+
+}, height = 800)
+
+
+```
+
+
+## Interpret Results {.tabset .tabset-fade .tabset-pills}
+
+### Population Mean
+
+First, using our `poc` variable, we'll calculate mean air pollution levels in in counties with larger communities of color (`"High"` = where over 30% of residents are Black) vs. smaller communities of color (`"Low"` = where below 30% of residents are Black). 
+
+When we calculate the mean of a population, we call this a ***population parameter***. When we calculate the mean of a sample, we call it a ***sample statistic***.
+
+- The *black line* is the *true mean in our population* - what we are trying to approximate with our sample.
+
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+pop <- counties %>%
+  group_by(poc) %>%
+  summarize(estimate = mean(air_pollution, na.rm = TRUE))
+
+# Extra just the mean for counties with high densities of communities of color
+pop_high <- pop %>% filter(poc == "High")
+# and then just low densities
+pop_low <- pop %>% filter(poc == "Low")
+
+# Next, let's get the standard deviation for the populaiton
+mysd <- sd(counties$air_pollution, na.rm = TRUE)
+mymean <- mean(counties$air_pollution, na.rm = TRUE)
+# And estimate a reasonable range for our plots, using 1 sd from the overall mean for air pollution
+myvalues <- c(mymean - mysd*1.5, mymean + mysd*1.75)
+```
+
+```{r, message=FALSE, warning = FALSE, eval = FALSE, echo = FALSE}
+pop <- counties %>%
+  group_by(poc) %>%
+  summarize(estimate = mean(air_pollution, na.rm = TRUE))
+# Let's view it!
+pop
+```
+
+```{r, echo = FALSE}
+knitr::kable(pop)
+```
+
+
+### Sample Mean
+
+In the visual, we also took one sample mean and compared it to the true mean in the population. How did we visualize this test?
+
+- **sample mean**: The *red line* is the *mean of a single random sample* we just took. That's usually all we get when conducting a study.
+
+<br>
+<br>
+
+
+### Sampling Distribution
+
+Next, we made a grey *distribution*, which usually overlaps closely with the population mean. This is a sampling distribution! 
+
+- **sampling distribution**: a distribution of statistics collected from many random samples. In this case, we took the mean of many samples from out population, and stacked them up to see which values we get most often. (We rarely can do this, because it's expensive and difficult to take that many samples.) 
+
+<br>
+<br>
+
+### Confidence Interval
+
+- **confidence interval**: the *pink band* is our *confidence interval* for our single random sample. 
+
+- Using the sample size and standard deviation, we can estimate a band around our mean. This band shows how much our mean might vary if we just got a slightly different sample due to random chance. 
+
+- If our population mean falls within that band, then we can be pretty *confident* that our sample statistic is not *significantly* different from the population. The common benchmark for confidence intervals is 95%.
+
+<br>
+<br>
+
+### Significance
+
+- **statistical significance**: how likely is it that this statistic occurred due just to chance, eg. randomly drawing that particular sample? If very likely, then that statistic is not very *significant.* If the statistic is very extreme, it's unlikely it occurred just due to chance, so we would say that statistic is *significant*.
+
+- **p-value**: the probability that a statistic occurred just due to chance. See the p-values for our tests below.
+
+```{r, echo = FALSE}
+renderTable({
+  result() %>%
+    select(poc, statistic, p_value) %>%
+    mutate(statistic = round(statistic, 2),
+           p_value = round(p_value, 3),
+           percent = round(p_value*100, 0)) 
+})
+```
+
+In this case, if that percentage is high, that means it's highly likely that our sample mean was different from the population mean just because of randomly sampling the data. But, if our p-value is very low, that's *significant.* That tells us that the difference between our sample and population mean is quite extreme; we would be unlikely to get that big a gap from sampling error alone.
+
+
+<br>
+<br>
+
+<hr>
+
+<br>
+<br>
+
+# 2. Learning Checks
+
+
+## Learning Check 1
+
+**Question**:
+
+- <text style="color:#9F2042">What happens when you increase the number of samples from 50 to 1000? Does it cluster closer or further from the population mean? Why would it be advantageous to cluster closer vs. further from the population mean? 
+
+<details><summary>**Answer**</summary>
+
+When the number of samples increases, the values of the sampling distribution cluster closer to the population mean, becoming more *accurate*. In other words, we know that as we take more and more samples, we can eventually approximate the true mean. This phenomenon is called the *Central Limit Theorem.*
+
+</details>
+
+<br>
+<br>
+
+## Learning Check 2
+
+**Question:**
+
+- <text style="color:#9F2042">What happens to the distribution when you increase the sample size from 50 to 1000? Does the width of the distribution get wider or thinner? Why would it be advantageous to have a thinner vs. wider distribution? 
+
+<details><summary>**Answer**</summary>
+
+As you increase the size of the each sample, the width of our sampling distribution gets narrower. It is advantageous to have a narrower distribution, because it means our range of error decreases. Because of this principle, if you increase your sample size, your sample estimates always get more *precise.* This phenomenon is called the *Law of Large Numbers.*
+
+</details>
+
+<br>
+<br>
+
+## Learning Check 3
+
+**Question**:
+
+- <text style="color:#9F2042">Take several new random samples. For what p-values does your sample mean's 95% confidence interval NOT overlap with the population mean?
+
+<details><summary>**Answer**</summary>
+
+Your p-value must be less than 0.05 is order for a 95% confidence interval to not overlap with the population mean.
+
+</details>
+
+<br>
+<br>
+
+## Learning Check 4 {.tabset .tabset-fade .tabset-pills}
+
+**Question**:
+
+- <text style="color:#9F2042">What does it mean for the 95% confidence interval to fully cover the population mean? What do you think it means if the 95% confidence interval doesn't cover the population mean?
+
+<details><summary>**Answer**</summary>
+
+When a 95% confidence interval covers the population mean, it means that 95% of random samples produce a sample mean in that zone. This means the population mean is not significantly different from what you might get 95% of the time from random samples.
+
+When a 95% confidence interval does not cover the population mean, this means your sample mean is significantly different from the population mean. 95% of the time, random samples would not produce this value.
+
+</details>
+
+<br>
+<br>
+<br>
+
+<hr>
+
+# 3. One-Sample T-tests
+
+Above, we visualized the results of a one-sample t-test. But how would we run it?
+
+The following formula can be used to calculate a one-sample t-test statistic. Click through the tabs below to see the one-sample t-tests for the random sample you generated in the visual above.
+
+```{r, echo = FALSE}
+output$oneformula <- renderUI({
+  
+  paste0(  
+    "$$t = \\frac{ mean_{sample} - mean_{population} }{ \\frac{ st.dev._{sample} }{ \\sqrt{ n_{sample} } }  }$$") %>%
+    withMathJax()
+})
+
+# Output the fancy formula
+uiOutput("oneformula")
+
+```
+
+<br>
+
+
+### High: More than 30% Black Residents {.tabset .tabset-fade .tabset-pills}
+
+#### Formula
+
+```{r, echo = FALSE}
+sample_high <- reactive({
+  newsample() %>%
+      filter(poc == "High") %>%
+      summarize(
+        estimate = mean(air_pollution, na.rm = TRUE),
+        sd = sd(air_pollution, na.rm = TRUE),
+        n = n())
+})
+```
+
+```{r, echo = FALSE}
+output$highformula <- renderUI({
+  
+  # Calculate t-statistic
+myt <- (sample_high()$estimate - pop_high$estimate) / 
+  (sample_high()$sd / sqrt(sample_high()$n))
+
+  paste0(  
+    "$$",
+    round(myt, 2),
+    " = \\frac{",
+    round(sample_high()$estimate, 2),
+    " - ",
+    round(pop_high$estimate, 2),
+    "}{ \\frac{",
+    round(sample_high()$sd, 2),
+    "}{ \\sqrt{",
+    sample_high()$n,
+    "} }  }$$", sep = "") %>%
+    withMathJax()
+})
+
+# Output the fancy formula
+uiOutput("highformula")
+
+```
+
+
+#### Result
+
+```{r, echo = FALSE}
+renderTable({
+  result() %>%
+    filter(poc == "High") %>%
+    select(-alternative, -poc) 
+})
+```
+
+<br>
+<br>
+
+
+### Low: Less than 30% Black Residents  {.tabset .tabset-fade .tabset-pills}
+
+#### Formula
+
+```{r, echo = FALSE}
+sample_low <- reactive({
+  newsample() %>%
+      filter(poc == "Low") %>%
+      summarize(
+        estimate = mean(air_pollution, na.rm = TRUE),
+        sd = sd(air_pollution, na.rm = TRUE),
+        n = n())
+})
+```
+
+```{r, echo = FALSE}
+
+output$lowformula <- renderUI({
+# Calculate t-statistic
+myt <- (sample_low()$estimate - pop_low$estimate) / 
+  (sample_low()$sd / sqrt(sample_low()$n))
+
+  paste0(  
+    "$$",
+    round(myt, 2),
+    "= \\frac{",
+    round(sample_low()$estimate, 2),
+    " - ",
+    round(pop_low$estimate, 2),
+    "}{ \\frac{",
+    round(sample_low()$sd, 2),
+    "}{ \\sqrt{",
+    sample_low()$n,
+    "} }  }$$", sep = "") %>%
+    withMathJax()
+})
+
+# Output the fancy formula
+uiOutput("lowformula")
+
+
+```
+
+
+#### Result
+
+```{r, echo = FALSE}
+renderTable({
+  result() %>%
+    filter(poc == "Low") %>%
+    select(-alternative, -poc) 
+})
+```
+

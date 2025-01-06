@@ -54,6 +54,7 @@ planes = read_csv("D/planes.csv")
 flights = read_csv("D/flights.csv")
 weather = read_csv("D/weather.csv")
 airports = read_csv("D/airports.csv")
+
 # Note: D/flights.csv is a really big table.
 # Let's use D/flights_sample.csv, a random sample of 20000 flights
 flights = read_csv("D/flights_sample.csv") 
@@ -62,10 +63,13 @@ flights = read_csv("D/flights_sample.csv")
 
 # View whole data.frame (gets censored)
 flights
+
 # View first 6 rows
 head(flights)
+
 # tilt it on its side and view all the columns
 glimpse(flights)
+
 # Or View() in its own window
 View(flights)
 
@@ -77,6 +81,10 @@ View(flights)
 # What does a row refer to in the 'flights' dataset? 
 # What does a row mean in the 'weather' dataset?
 
+flights = read_csv("D/flights_sample.csv")
+flights
+weather = read_csv("D/weather.csv")
+weather
 
 
 ## 0.2 Using Pipelines ####################################
@@ -89,6 +97,10 @@ View(flights)
 
 head(flights)
 flights %>% head()
+
+# input data --> function --> output data
+# flights %>% head() %>% length() %>% length()
+
 
 
 ## LC 2 ######################################################
@@ -140,7 +152,7 @@ weather$month %>%
 # Chunk 1
 flights
 
-# Chunk 3
+# Chunk 2
 flights %>%
   select(dep_time, sched_dep_time)
 
@@ -183,6 +195,7 @@ flights %>%
 # We can do that by replacing an old vector with a new vector, 
 # or just adding a new vector. mutate() helps us do that.
 
+
 ## LC 5 ###################################
 
 # Learning Check:
@@ -192,6 +205,8 @@ flights %>%
 # Under what conditions can you use it?
 # Why does it help us more than making calculations in the format of 'mydataframe$myvector - 1' ?
 
+flights
+
 flights %>%
   mutate(dep_delay = dep_delay - 1)
 
@@ -199,6 +214,9 @@ flights$dep_delay - 1
 
 flights %>%
   mutate(dep_delay = 1)
+
+flights %>%
+  mutate(dep_delay = c(1,2)) # ERROR!
 
 flights %>%
   mutate(dep_delay = dep_time - sched_dep_time)
@@ -217,6 +235,8 @@ flights %>%
 # Why? Because you can't fit 1000 values into 999 rows, for example.
 # and because R knows to repeat 1 value 1000 times if you give it just 1 value, 
 # but R won't know what to do otherwise.
+
+airlines = read_csv("D/airlines.csv")
 
 # Check out the error we get below. Why does this happen?
 airlines %>%
@@ -241,6 +261,7 @@ airlines %>%
   mutate(funds = seq(from = 0, to = 4, length.out = n() )) ## ooh n(), a new dplyr function
 
 
+
 # 3. filter() and arrange() #################################
 
 ## LC 7 #########################################################
@@ -260,6 +281,9 @@ flights %>%
 
 flights %>%
   filter(dep_delay %in% c(1,2))
+
+flights %>%
+  filter(dep_delay == 1 | dep_delay == 2)
 
 flights %>%
   filter(!dep_delay %in% c(1,2))

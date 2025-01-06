@@ -30,8 +30,17 @@ library(ggplot2)
 # and we’ll zoom into just municipalities with at least 1 resident.
 
 
+# Import
+jp <- read_csv("D/jp_emissions.csv") 
+
+# to get the carbon footprint of each city,
+jp <- read_csv("D/jp_emissions.csv")  %>%
+  mutate(footprint = emissions / pop * 1000)
+
+jp$footprint
+
 # Import data
-jp <- read_csv("Q/jp_emissions.csv") %>%
+jp <- read_csv("D/jp_emissions.csv") %>%
   # to get the carbon footprint of each city,
   mutate(footprint = emissions / pop * 1000) %>%
   # Zoom into just cities where anyone lives
@@ -68,6 +77,12 @@ jp %>% head(3)
 avg <- jp %>%
   group_by(year) %>%
   summarize(footprint = mean(footprint, na.rm = TRUE))
+
+# Reframe is the new way - I encourage you to use it.
+avg <- jp %>%
+  group_by(year) %>%
+  reframe(footprint = mean(footprint, na.rm = TRUE))
+
 
 # View it!
 avg

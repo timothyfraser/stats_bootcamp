@@ -10,8 +10,6 @@
 # Install main python packages for this training
 # !pip install pandas
 # !pip install plotnine
-# !pip install os
-# !pip install sys
 
 
 # Import packages
@@ -37,11 +35,14 @@ gapminder
 
 # We start with a blank plot with ggplot(), then we add (+) another layer using a geom_ function.
 ( ggplot() )
+
+
 # We made an empty graph!
 
 # In this case, let's add geom_histogram() to overlay a histogram
-(ggplot() +
+( ggplot() + 
   geom_histogram(data = gapminder, mapping = aes(x = 'lifeExp')) )
+
 
 # Time range
 gapminder.year.min()
@@ -49,7 +50,6 @@ gapminder.year.max()
 
 # number of unique countries
 len(pd.Series(gapminder.country.unique()))
-
 
 
 
@@ -74,13 +74,17 @@ len(pd.Series(gapminder.country.unique()))
   geom_histogram(data = gapminder, mapping = aes(x = 'lifeExp'), 
                  color = "steelblue") )
 
+(ggplot() +
+  geom_histogram(data = gapminder, mapping = aes(x = 'lifeExp', color = 'continent', group = 'continent')) )
 
 
-# Looks like putting the name 'steelblue' INSIDE the aes() makes steelblue the name of a category,
+# Looks like putting a color variable INSIDE the aes() makes that variable the name of a category,
 # but putting the name 'steelblue' OUTSIDE the aes() makes the color steelblue.
 
+
+
 # Finishing the Visual ###############################################
-(ggplot() +
+( ggplot() +
   geom_histogram(
     data = gapminder, mapping = aes(x = 'lifeExp'),
     color = "white",  # change outline color
@@ -92,19 +96,27 @@ len(pd.Series(gapminder.country.unique()))
        y = "Frequency (count)",
        title = "Distribution of Life Expectancy",
        subtitle = "in 142 countries, 1952 - 2007",
-       caption = "Source: gapminder dataset.") )
+       caption = "Source: gapminder dataset."  )
+)
+
+
 
 
 # Density Curves (function of the histogram) #################
 
 # Alternatively, we could use geom_density() to
 # map the approximate shape of that histogram as a line / function
-(ggplot() +
-  geom_density(data = gapminder, mapping = aes(x = 'lifeExp')) )
+( ggplot() +
+   geom_density(data = gapminder, mapping = aes(x = 'lifeExp')) )
+
+
+
+
+
 
 
 # A polished visual might look like this, customizing the color, fill, and labels
-(ggplot() +
+( ggplot() +
   geom_density(
     data = gapminder, mapping = aes(x = 'lifeExp'),
     color = "white",  # change outline color
@@ -116,6 +128,8 @@ len(pd.Series(gapminder.country.unique()))
        title = "Distribution of Life Expectancy",
        subtitle = "in 142 countries, 1952 - 2007",
        caption = "Source: gapminder dataset.") )
+
+
 
 
 # Boxplots (summary statistics of distribution) ##################
@@ -130,15 +144,15 @@ len(pd.Series(gapminder.country.unique()))
 
 
 # A polished visual might look like this, customizing the color, fill, and labels
-(ggplot() +
+( ggplot() +
   geom_boxplot(
     data = gapminder, mapping = aes(x = 'continent', y = 'lifeExp'),
     color = "steelblue",  # change outline color
     fill = "white"  # change polygon fill
   ) +
   # Add labels to aesthetics with labs()
-  labs(x = "Life Expectancy (years)",
-       y = "Probability (density)",
+  labs(x = "Continents (n = 5)",
+       y = "Life Expectancy (years)",
        title = "Distribution of Life Expectancy",
        subtitle = "in 142 countries, 1952 - 2007",
        caption = "Source: gapminder dataset.") )

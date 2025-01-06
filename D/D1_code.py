@@ -10,7 +10,7 @@
 
 # Plus, it's like tiny puzzles! Yay puzzles!
 
-# Below, we're going to learn to use the pandas package (pronounced 'dip-ler')
+# Below, we're going to learn to use the pandas package
 # There are several Tasks and Learning Checks (LC 1, LC2, etc.) in this tutorial, 
 # Please run through them all to try it out yourself!
 
@@ -36,7 +36,7 @@ import pandas as pd
 
 
 
-# We're going to use the nycflights datasets saved in our data/ folder.
+# We're going to use the nycflights datasets saved in our D/ folder.
 # It's a compilation of several different tables.
 # These tables describe all flights going out of New York City in 2013.
 # It's a great big database of a massive socio-technical system.
@@ -46,6 +46,9 @@ planes = pd.read_csv("D/planes.csv")
 flights = pd.read_csv("D/flights.csv")
 weather = pd.read_csv("D/weather.csv")
 airports = pd.read_csv("D/airports.csv")
+
+del flights
+
 # Note: D/flights.csv is a really big table.
 # Let's use D/flights_sample.csv, a random sample of 20000 flights
 flights = pd.read_csv("D/flights_sample.csv") 
@@ -64,6 +67,7 @@ flights.head(7)
 # View specific rows 
 flights.values[1:3,]
 
+flights[0:4]
 
 
 ## LC 1 #################################################
@@ -71,8 +75,9 @@ flights.values[1:3,]
 # Learning Check:
 # What does a row refer to in the 'flights' dataset? 
 # What does a row mean in the 'weather' dataset?
+flights
 
-
+weather.columns
 
 ## 0.2 Using the dot ####################################
 
@@ -82,6 +87,8 @@ flights.values[1:3,]
 # Here's an example
 flights.head()
 
+
+flights.dep_time.mean()
 
 ## LC 2 ######################################################
 
@@ -118,7 +125,7 @@ sum(weather.precip) / len(weather.precip)
 flights
 
 # Chunk 2
-flights[['dep_time', 'sched_dep_time']]
+flights[ ['dep_time', 'sched_dep_time'] ]
 
 # Chunk 3
 flights.drop(columns = ['year'])
@@ -145,23 +152,22 @@ flights.rename(columns={'dep_time': 'departure_time'}).columns
 
 
 # Chunk 4
-flights.rename(columns={'dep_time': 'departure_time'})[['departure_time']]
+flights.rename(columns={'dep_time': 'departure_time'})[[ 'departure_time' ]]
 
 # Chunk 5
 flights.iloc[:, 3]
 
 # Chunk 6
 f2 = flights[[ 'month', 'day']].copy()
+f2
 f2['departure_time'] = flights.iloc[:,3]
+# OR
+f2['departure_time'] = flights.dep_time
+
 f2
 
 
-
-
-
 # 2. appending  ###########################################
-
-
 
 
 # Sometimes, we need to change values in a column (vector).
@@ -176,7 +182,7 @@ f2
 # How do you overwrite vectors in a pandas dataframe?
 
 flights['dep_delay'] = flights['dep_delay'] - 1
-flights
+flights['dep_delay']
 
 flights['dep_delay'] - 1
 
@@ -186,13 +192,13 @@ flights['dep_delay'] - 1
 ## LC 6 #########################################
 
 # Learning Check:
-# The values you assign a variable in mutate 
+# The values you assign a variable in MUTATE operations like append
 # must always be either just 1 value in length, 
 # or the length of the data.frame (many rows in this case).
 
 # Why? Because you can't fit 1000 values into 999 rows, for example.
-# and because R knows to repeat 1 value 1000 times if you give it just 1 value, 
-# but R won't know what to do otherwise.
+# and because Python knows to repeat 1 value 1000 times if you give it just 1 value, 
+# but Python won't know what to do otherwise.
 
 # Check out the error we get below. Why does this happen with the second, but not the first chunk?
 
@@ -242,6 +248,9 @@ flights.query('month != 4')
 # chunk 4
 flights[ flights['month'].isin([1,2]) ]
 
+flights[  flights.month.isin( [1,2] )  ]
+
+
 # chunk 5
 flights[ ~flights['month'].isin( [1,2] ) ]
 
@@ -251,7 +260,7 @@ flights[ ~flights['month'].isin( [1,2] ) ]
 
 # Learning Check:
 # Let's try some more complex ones. 
-# What happens when you combine them? What's the difference between a comma, '&', and '|'?
+# What happens when you combine them? What's the difference between an 'and' and an 'or'
 
 # chunk 1
 flights[ ['dep_delay', 'origin'] ].query('dep_delay > 4 and origin == "JFK"')
@@ -277,8 +286,20 @@ flights[['month', 'day', 'dep_delay', 'origin']].sort_values(by=['origin', 'dep_
 
 flights[['month', 'day', 'dep_delay', 'origin']].loc[flights['origin'].isin(['JFK', 'LGA'])].sort_values(by=['origin', 'dep_delay'], ascending=[True, False])
 
+flights[['month', 'day', 'dep_delay', 'origin'] ].loc[flights['origin'].isin(['JFK', 'LGA'])].sort_values(by=['origin', 'dep_delay'], ascending=[True, False])
+
+flights[ flights.origin.isin(['JFK', 'LGA']) ][ [ 'month', 'day', 'dep_delay', 'origin' ] ].sort_values(by=['origin', 'dep_delay'], ascending=[True, False])
+
+
 # As these get longer, it can help to break them up into multiple lines.
 
+flights[ 
+  flights.origin.isin(['JFK', 'LGA']) 
+  ][ [ 'month', 'day', 'dep_delay', 'origin' ] 
+  ].sort_values(
+    by=['origin', 'dep_delay'], 
+    ascending=[True, False]
+    )
 
 # Cleanup ###################################
 # You're done!

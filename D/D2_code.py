@@ -35,13 +35,23 @@ from plotnine import *
 # Import data
 jp = pd.read_csv("D/jp_emissions.csv")
 
+jp
+jp.columns
+
 # Data wrangling
 data = jp[ ['muni', 'year', 'pop', 'emissions'] ]
 
+data
+
+
 # Zoom into just cities where anyone lives
 data = data.query('pop >= 1')
+
+
 # Get the carbon footprint of each city,
 data['footprint'] = data['emissions'] / data['pop'] * 1000
+
+
 # Grab just these variables
 data = data[['muni', 'footprint', 'year', 'pop']]
 
@@ -77,6 +87,18 @@ data.head(3)
 
 
 # Get mean footprint per year, with options of getting extra stats
+data.groupby('year').apply(lambda df: pd.Series({
+  'mean': df.footprint.mean()  
+}) 
+)
+
+# Maybe drop the NAs first...
+data.groupby('year').apply(lambda df: pd.Series({
+  'mean': df.footprint.dropna().mean()  
+}) 
+)
+
+
 avg = data.groupby('year').apply(lambda df: pd.Series({
   'mean': df.footprint.dropna().mean()  })
   ).reset_index()
@@ -89,11 +111,25 @@ avg
 
 # Alternative methods:
 
+data.groupby('year')[ 'footprint' ].mean().reset_index()
+
 # Get mean footprint per year
 data.groupby('year')[ 'footprint' ].mean().reset_index()
 
 # Get all descriptive stats for footprint per year
 data.groupby('year')['footprint'].describe().reset_index()
+
+
+
+
+# Why is apply() even worth our time?
+data.groupby('year').apply(lambda df: pd.Series({
+  'mean': df.footprint.dropna().mean(),
+  'n_cities': len(df),
+  'sd': df.footprint.dropna().std()
+}) 
+).reset_index()
+
 
 
 # Visualize it!
@@ -104,7 +140,7 @@ data.groupby('year')['footprint'].describe().reset_index()
 
 
 # Cleanup
-rm(list = ls())
+globals().clear()
 
 
 
