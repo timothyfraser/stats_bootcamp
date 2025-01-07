@@ -4,6 +4,7 @@
 # 0. Getting Started ##########################################################
 
 # Please load our main packages
+# install.packages(c("dplyr", "readr", "ggplot2"))
 library(dplyr) # data wrangling
 library(readr) # read in data
 library(ggplot2) # visualization with ggplot
@@ -16,11 +17,14 @@ counties <- read_csv("E/environmental_health.csv") %>%
 # View first 3 rows of dataset
 counties %>% head(3)
 
+
 # 1. Population Parameters #################################################
 
 # This dataset contains air pollution data for every county in the US, as of 2019.
 # counties will be our 'population' dataset, showing the full universe of counties.
 pop = counties %>% select(county, fips, air_pollution)
+
+
 
 # Let's calculate the mean level of PM 2.5 air pollution,
 # in micrograms per cubic meter (PM2.5),
@@ -34,6 +38,10 @@ p = pop %>%
 # View the mean air pollution level
 p
 
+
+
+
+
 # 2. Sample Statistics ###############################################
 
 # But what if we can't measure air pollution in every county? 
@@ -46,6 +54,8 @@ sample = pop %>%
   # Sample 100 rows
   sample_n(size = 100) 
 
+sample
+
 # And get the mean
 s = sample %>%  
   reframe(mu = mean(air_pollution, na.rm = TRUE))
@@ -54,6 +64,8 @@ s = sample %>%
 # Do they differ? A lot?
 p
 s
+
+
 
 # 3. Sampling Distributions #############################################
 
@@ -70,7 +82,7 @@ d = tibble(rep = 1:1000) %>%
   group_by(rep) %>%
   reframe(pop %>% sample_n(size = 100)) %>%
   group_by(rep) %>%
-  summarize(mu = mean(air_pollution, na.rm = TRUE))
+  reframe(mu = mean(air_pollution, na.rm = TRUE))
 # Let's view 'd', our sampling distribution data.frame
 d
 
@@ -118,6 +130,8 @@ d %>%
 # with a 95% confidence interval ranging from AAA to BBB.
 
 
+
+
 # 5. Standard Errors ##############################################################
 
 # But in reality, we NEVER get to see the full population,
@@ -138,6 +152,8 @@ sd(d$mu)
 
 
 # HOLY CRAP! It works!
+
+
 
 # 6. Confidence Intervals with Normal Distribution Approximation ##############################
 
@@ -205,7 +221,7 @@ b = tibble(rep = 1:1000) %>%
   # Now for each sample...
   group_by(rep) %>%
   # Calculate the mean
-  summarize(mu = mean(air_pollution, na.rm = TRUE))
+  reframe(mu = mean(air_pollution, na.rm = TRUE))
 
 # View the distribution!
 b$mu %>% hist()
