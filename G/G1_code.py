@@ -19,12 +19,14 @@ flights = pd.read_csv("G/flights_sample.csv")
 # statistically significant difference in average departure delays in April compared to in March?
 flights
 
+flights.dep_delay
+
 # Get just flights in March and April
 data = flights.query('year == 2013')
 data = data.query('month == 3 or month == 4')
 data = data[ ['month', 'dep_delay'] ]
+data = data.dropna()
 data
-
 
 # Compare the differences with descriptive statistics
 data.groupby('month').apply(lambda df: pd.Series({
@@ -47,6 +49,8 @@ data.groupby('month').apply(lambda df: pd.Series({
 # Extract the dep_delay vector for these 2 months
 a = data.query('month == 3')['dep_delay']
 b = data.query('month == 4')['dep_delay']
+a
+b
 
 # Perform Bartlett's test for homogeneity of variances
 
@@ -63,23 +67,39 @@ print(var_equal)
 
 
 
-# Perform unpaired t-test with equal variances (correction = False)
-# See documentation: https://pingouin-stats.org/build/html/generated/pingouin.ttest.html
-stat = pg.ttest(y = data['dep_delay'], x = data['month'], paired = False, correction = 'False')
 
-# Perform unpaired t-test with uneqaul variances (correction = True --> Welch T-test)
+# t-test ###################################
+# Extract variables
+a = data.query('month == 3')[ 'dep_delay' ]
+b = data.query('month == 4')[ 'dep_delay' ]
+
+# Perform unpaired t-test with equal variances (correction = 'None')
+# See documentation: https://pingouin-stats.org/build/html/generated/pingouin.ttest.html
+# stat = pg.ttest(a, b, paired = False, correction = 'None')
+
+# Perform unpaired t-test with unequal variances (correction = True --> Welch T-test)
 # See documentation:  https://pingouin-stats.org/build/html/generated/pingouin.ttest.html
-# stat = pg.ttest(y = data['dep_delay'], x = data['month'], paired = False, correction = 'True')
+stat = pg.ttest(a, b, paired = False, correction = 'auto')
+
 
 # View the t-test table
 print(stat)
+
+stat.columns
+
 
 stat['T'] # extract t-statistic
 stat['CI95%'] # extract 95% confidence interval
 stat['p-val'] # extract p-value
 
-# Compares group 1 with group 2 (whatever category comes first alphabetically)
-# eg. avg of month 3 minus avg of month 4
+stat
+# april (4) - march (3)
+# Compares group 2 with group 1 (whatever category comes latest alphabetically)
+# eg. avg of month 4 minus avg of month 3
+
+# Difference of means is not statistically significant
+# Negative difference from March to April
+# We are not 95% confident that the different of means is different from zero.
 
 
 # Cleanup

@@ -3,9 +3,10 @@
 # Prof. Tim Fraser
 
 # Load Packages
-library(dplyr)
-library(readr)
-library(broom)
+# install.packages(c("dplyr", "readr", "broom"))
+library(dplyr) # for data wrangling
+library(readr) # for reading data
+library(broom) # for convert models to data.frames
 
 # Load data!
 flights = read_csv("G/flights_sample.csv")
@@ -18,19 +19,22 @@ flights
 # Get just flights in March and April
 data = flights %>% 
   filter(month == 3 | month == 4) %>%
-  select(month,dep_delay) 
+  select(month,dep_delay) %>%
+  # Filter to just valid data
+  filter(!is.na(dep_delay))
 
-
+data
 
 # Compare the differences with descriptive statistics
 data %>%
   group_by(month) %>%
-  summarize(
+  reframe(
     # get mean
     mean = mean(dep_delay, na.rm = TRUE),
     # calculate a standard error from std. deviation and sample size
     sd = sd(dep_delay, na.rm = TRUE),
-    n = length(dep_delay[ !is.na(dep_delay)] ),
+    n = n(),
+    # n = length(dep_delay[ !is.na(dep_delay)] )
     se = sd / sqrt(n)
   )
 
@@ -42,30 +46,40 @@ data %>%
 
 
 # Compare group variances. Are the variances significantly different?
-var.test(dep_delay ~ month, data = data)
+var.test(formula = dep_delay ~ month, data = data)
+
 
 # Reject null hypothesis. These variances are fairly different.
 
 
 # Run t-test, without equal variance assumption
-m = t.test(dep_delay ~ month, data = data, var.equal = FALSE)
+m = t.test(formula = dep_delay ~ month, data = data, var.equal = FALSE)
 
 # Look at output
 m
 
 # Get statistics from model into a data.frame
-stat = tidy(m)
+stat = broom::tidy(m)
+
+stat
 
 # Get difference of means
 stat$estimate
 
+
 # Get t-statistic
 stat$statistic
+
 
 # Get p.value for t-statistic
 stat$p.value
 
-# Get confidence interval arounf difference of means
+# 16% of random t stats are more extreme than mine.
+# My observed t stat is more extreme than 84% of random t-stats.
+
+# Cutoffs
+
+# Get 95% confidence interval around difference of means
 stat$conf.low
 stat$conf.high
 
