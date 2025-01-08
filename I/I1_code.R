@@ -16,7 +16,7 @@ library(broom)
 
 # Import palmer penguins dataset, 
 # recording traits of 344 penguins seen in Antarctica
-data = read_csv("O/palmerpenguins.csv")
+data = read_csv("I/palmerpenguins.csv")
 
 
 # Researchers documented 344 penguins across multiple islands.

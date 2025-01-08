@@ -8,7 +8,7 @@ library(readr)
 library(broom)
 
 # Load data!
-flights = read_csv("M/flights_sample.csv")
+flights = read_csv("H/flights_sample.csv")
 
 # JFK attempted to reduce departure delays in the year 2013.
 # Looking at the 5 carriers with largest volume of flights,

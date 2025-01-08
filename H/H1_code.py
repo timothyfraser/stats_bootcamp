@@ -12,7 +12,7 @@ from scipy.stats import bartlett
 import pingouin as pg
 
 # Load the dataset
-flights = pd.read_csv("M/flights_sample.csv")
+flights = pd.read_csv("H/flights_sample.csv")
 
 # JFK attempted to reduce departure delays in the year 2013.
 # Looking at the 8 carriers with the largest volume of flights,

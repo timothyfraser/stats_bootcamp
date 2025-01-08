@@ -19,7 +19,7 @@ import pingouin as pg
 
 # Import palmer penguins dataset, 
 # recording traits of 344 penguins seen in Antarctica
-penguins = pd.read_csv("O/palmerpenguins.csv")
+penguins = pd.read_csv("I/palmerpenguins.csv")
 
 
 # Researchers documented 344 penguins across multiple islands.

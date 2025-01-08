@@ -19,7 +19,7 @@ import statsmodels.api as sm
 from plotnine import *
 
 # Import data
-avg = pd.read_csv("Q/avg_annual_footprint.csv")
+avg = pd.read_csv("K/avg_annual_footprint.csv")
 
 
 # Plot the raw data, using geom_point() and geom_line(). 

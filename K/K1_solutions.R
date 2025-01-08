@@ -19,7 +19,7 @@ library(broom)
 
 
 # Import data
-avg = read_csv("Q/avg_annual_footprint.csv")
+avg = read_csv("K/avg_annual_footprint.csv")
 
 
 # Plot the raw data, using geom_point() and geom_line(). 

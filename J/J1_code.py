@@ -14,7 +14,7 @@ import pandas as pd
 import pingouin as pg
 
 # Load in the penguins data!
-penguins = pd.read_csv("P/palmerpenguins.csv")
+penguins = pd.read_csv("J/palmerpenguins.csv")
 
 # Researchers tracked 344 penguins in Antarctica, from 2007 to 2009.
 # We want to know, are traits of these penguins changing over time?

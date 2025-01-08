@@ -1,7 +1,12 @@
 # E1_code.R
 # Sampling and Confidence Intervals
 
+
 # 0. Getting Started ##########################################################
+
+# !pip install pandas
+# !pip install plotnine
+# !pip install scipy
 
 # Please load our main packages
 import pandas as pd # data wrangling
@@ -15,6 +20,8 @@ counties = pd.read_csv("E/environmental_health.csv").dropna()
 # View first 3 rows of dataset
 counties.head(3) 
 
+counties.air_pollution
+
 
 
 # 1. Population Parameters #################################################
@@ -22,7 +29,7 @@ counties.head(3)
 # This dataset contains air pollution data for every county in the US, as of 2019.
 # counties will be our 'population' dataset, showing the full universe of counties.
 pop = counties[ ["county", "fips", "air_pollution"] ]
-
+pop
 
 # Let's calculate the mean level of PM 2.5 air pollution,
 # in micrograms per cubic meter (PM2.5),
@@ -31,7 +38,7 @@ pop = counties[ ["county", "fips", "air_pollution"] ]
 # We'll name the object 'p' for population, 
 # and the statistic 'mu', a Greek letter we use to describe the mean value often.
 
-p = pd.DataFrame({'mu': pd.Series( pop.air_pollution.mean() ) })
+p = pd.DataFrame({'mu': [ pop.air_pollution.mean() ] })
 
 
 # View the mean air pollution level
@@ -54,7 +61,7 @@ sample = pop.sample(n = 100)
 sample
 
 # And get the mean
-s = pd.DataFrame({'mu': pd.Series( sample.air_pollution.mean() ) })
+s = pd.DataFrame({'mu': [ sample.air_pollution.mean() ] })
 
 
 # Compare the population parameter and the sample statistic.
@@ -181,6 +188,7 @@ stat = pd.DataFrame({
   'se': [ sample.air_pollution.std()  / len( sample.air_pollution.dropna() )**0.5 ],
   'z': [ scipy.stats.norm.ppf(0.975) ]
 })
+stat
 # Calculate confidence interval by taking z standard errors above / below mean
 stat['lower'] = stat.mu - stat.se * stat.z
 stat['upper'] = stat.mu + stat.se * stat.z
@@ -228,6 +236,8 @@ b = pd.DataFrame({
   # Then return 'rep' to be a column
 ).reset_index()
 
+b
+
 # View the distribution!
 ( ggplot() + geom_histogram(data = b, mapping = aes(x = 'mu')) )
 
@@ -246,13 +256,14 @@ b = pd.DataFrame({
 p['type'] = "Population Mean"
 s['type'] = "Sample Mean"
 lines = pd.concat([p, s])
+lines
 
 # Make a data.frame to house the distributions, 
 # labeling and stacking them atop each other with pd.concat()
 d['type'] = "Sampling\nDistribution"
 b['type'] = "Bootstrapped\nSampling\nDistribution"
 dists = pd.concat([b,d])
-
+dists
 
 # Now visualize them, split by type;
 # (use position = 'identity' to make sure the histograms overlap, not stack)

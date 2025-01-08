@@ -12,7 +12,7 @@ from scipy.stats import bartlett
 import pingouin as pg
 
 # Load the dataset
-flights = pd.read_csv("M/flights_sample.csv")
+flights = pd.read_csv("G/flights_sample.csv")
 
 # JFK attempted to reduce departure delays in the month of April.
 # Based on this sample of 20,000 flights, was there a 

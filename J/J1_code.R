@@ -11,7 +11,7 @@ library(readr)
 library(broom)
 
 # Load in the penguins data!
-penguins = read_csv("P/palmerpenguins.csv")
+penguins = read_csv("J/palmerpenguins.csv")
 
 # Researchers tracked 344 penguins in Antarctica, from 2007 to 2009.
 # We want to know, are traits of these penguins changing over time?
