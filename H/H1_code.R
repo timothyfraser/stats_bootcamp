@@ -3,6 +3,7 @@
 # Prof. Tim Fraser
 
 # Load Packages
+# install.packages(c("dplyr", "broom", "readr"))
 library(dplyr)
 library(readr)
 library(broom)
@@ -18,17 +19,30 @@ flights = read_csv("H/flights_sample.csv")
 data = flights %>% 
   filter(year == 2013) %>%
   filter(carrier %in% c("UA", "B6", "EV", "DL", "AA")) %>%
-  select(carrier, dep_delay)
+  select(carrier, dep_delay) %>%
+  filter(!is.na(dep_delay))
 
-# Looks like the month 4 had a higher average departure delay than month 3.
+
+# Does the airline significantly affect / explain variation in departure delay times?
+
+# Descriptively answer the question.
+# Do the average departure delay times vary by airline?
+data %>%
+  group_by(carrier) %>%
+  reframe(mean = mean(dep_delay))
+
+data %>%
+  reframe(mean = mean(dep_delay))
+
 # Is this difference actually statistically significant? 
-# Need t-test!
 
 
 # Compare group variances. Are the variances significantly different?
 # Are the variances of my 3+ groups significantly different?
 # Homogeneity of Variance - Barlett's test for K^2
-bartlett.test(dep_delay ~ carrier, data = data)
+bartlett.test(formula = dep_delay ~ carrier, data = data)
+
+
 
 # K-squared is a ratio showing how different are the variances, from 0 to infinity.
 # If K-squared is not significant, the differences are not significant.
@@ -36,25 +50,31 @@ bartlett.test(dep_delay ~ carrier, data = data)
 # Looks like the differences in variance are quite significant.
 # Best **not** to assume equal variance.
 
+
+
 # You can do an ANOVA without the equal variance assumption using oneway.test()
 # set var.equal = FALSE if no equal variance assumption.
-m = oneway.test(dep_delay ~ carrier, data = data, var.equal = FALSE)
+m = oneway.test(formula = dep_delay ~ carrier, data = data, var.equal = FALSE)
 
 # if equal variance assumption, set var.equal = TRUE
 # m = oneway.test(dep_delay ~ carrier, data = data, var.equal = TRUE)
 
+m
 
 # View table
-m %>% tidy()
+m %>% broom::tidy()
 
 # Get F statistic
 m$statistic
 # Get significance
 m$p.value
 
+# Airline carrier has a statistically significant relationship with departure delays.
+# Departure delay means vary significantly by airline carrier.
+
 
 
 # Cleanup 
 rm(list = ls())
-
+s
 

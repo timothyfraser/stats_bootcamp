@@ -188,7 +188,11 @@ stat = pd.DataFrame({
   'se': [ sample.air_pollution.std()  / len( sample.air_pollution.dropna() )**0.5 ],
   'z': [ scipy.stats.norm.ppf(0.975) ]
 })
+
+
 stat
+
+
 # Calculate confidence interval by taking z standard errors above / below mean
 stat['lower'] = stat.mu - stat.se * stat.z
 stat['upper'] = stat.mu + stat.se * stat.z

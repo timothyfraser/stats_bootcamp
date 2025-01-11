@@ -1,4 +1,4 @@
-# J1_code.R
+# J1_code.py
 # Correlation with Pearson's r 
 # Tim Fraser
 
@@ -27,7 +27,7 @@ penguins = pd.read_csv("J/palmerpenguins.csv")
 # This test also calculates a t-statistic for that correlation,
 # to evaluate how statistically significant is that correlation.
 
-# Let's use cor.test() to assess whether penguins' body mass is 
+# Let's use pg.corr() to assess whether penguins' body mass is 
 # positively/negatively related to the year of observation.
 stat = pg.corr(x = penguins.year, y = penguins.body_mass_g, method = "pearson") 
 
@@ -36,6 +36,7 @@ stat
 
 # Let's extract some stats! 
 stat['r'] # view the correlation coefficient itself
+
 # that's a very weak, minimal, positive correlation
 
 stat['p-val'] # view p-value for t-statistic (t-statistic itself not included in result)

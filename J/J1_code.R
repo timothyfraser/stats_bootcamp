@@ -13,6 +13,8 @@ library(broom)
 # Load in the penguins data!
 penguins = read_csv("J/palmerpenguins.csv")
 
+penguins
+
 # Researchers tracked 344 penguins in Antarctica, from 2007 to 2009.
 # We want to know, are traits of these penguins changing over time?
 
@@ -27,9 +29,11 @@ penguins = read_csv("J/palmerpenguins.csv")
 # Let's use cor.test() to assess whether penguins' body mass is 
 # positively/negatively related to the year of observation.
 m = cor.test(x = penguins$year, y = penguins$body_mass_g, method = "pearson") 
+m
 
 # Let's extract a data.frame of results with the broom package's tidy() function
 stat = broom::tidy(m)
+
 # View table
 stat
 
