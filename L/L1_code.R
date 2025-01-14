@@ -1,4 +1,5 @@
-# L1_code.R
+# L/L1_code.R
+# Prediction
 
 # We're going to try to predict food deserts
 
@@ -34,9 +35,6 @@
 
 
 # 0. Getting Started ###############################
-
-# Make sure you have installed the MASS package.
-# install.packages("MASS")
 
 # Load Packages
 library(dplyr)
@@ -74,10 +72,15 @@ x
 
 # Generate predictions and return standard errors for each prediction,
 p = predict(m, newdata = x, se.fit = TRUE)
+
+# View list output
+p
+
 # Make a data.frame of predicted values, 
 # by appending on the 'fitted' (predicted) values 
 # and the standard errors for each prediction.
 qis1 = x %>%  mutate(yhat = p$fit, se = p$se.fit)
+
 # Add lower and upper confidence intervals,
 # using the z-value for a 97.5th percentile in a normal distribution as a multiplier
 # gives us upper and lower 95% confidence interval
@@ -100,196 +103,43 @@ ggplot() +
   geom_point(data = qis1, mapping = aes(x = pop_black, y = yhat), size = 3)
 
 
-# 2. Fundamental Uncertainty ###########################################
+# Simulating Marginal Effects ####################################
 
-# Sometimes we may want to simulate error 
-# by taking random draws from a normal distribution
-# because normal methods might not work.
+# Finally, let's estimate the marginal effect 
+# of the share of black residents changing from 0 to 0.25.
 
-sigma = glance(m)$sigma # get root mean squared error 
-
-# We could take the 'sigma' statistic - the residual standard error,
-# aka the average prediction error,
-# and randomly add error to each of our predictions
-# by drawing from a normal distribution
-# whose width matches that distribution.
-
-pred2 =  x %>%
-  # Make prediction and get residual standard error sigma
-  mutate(yhat = predict(m, newdata = .),
-         se = glance(m)$sigma) %>%
-  # Add a unique id per row.
-  mutate(id = 1:n())
-
-# Next, let's simulate for each row/group...
-sims2 = pred2 %>%
-  group_by(id, pop_black) %>%
-  reframe(
-    ysim = yhat + rnorm(n = 1000, mean = 0, sd = sigma)
-  ) 
-# View it!
-sims2
-
-# For each group, let's get quantities of interest,
-# eg. confidence intervals
-qis2 = sims2 %>% 
-  group_by(id, pop_black) %>%
-  reframe(lower = quantile(ysim, probs = 0.025),
-          median = quantile(ysim, probs = 0.50),
-          upper = quantile(ysim, probs = 0.975))
-
-# View our quantities of interest!
-qis2
-
-
-# Visualize our quantities of interest!
-# and add a line plot and points afterwards
-ggplot() +
-  geom_ribbon(data = qis2, mapping = aes(x = pop_black, ymin = lower, ymax = upper), 
-              fill = "steelblue", alpha = 0.5) +
-  geom_line(data = qis2, mapping = aes(x = pop_black, y = median)) +
-  geom_point(data = qis2, mapping = aes(x = pop_black, y = median), size = 3)
-
-
-# 3. Simulating Estimation Uncertainty ###############################
-
-# Alternatively, we could try an even more robust form of simulation,
-# where we account for estimation uncertainty,
-# We simulate estimation uncertainty by varying our beta coefficients,
-
-
-# Extract some ingredients for simulation
-mu = m$coefficients # get alpha/beta coefficients
-vcov = vcov(m) # get variance covariance matrix
-sigma = glance(m)$sigma # get root mean squared error 
-
-
-# Make just 1 sample...
-MASS::mvrnorm(n = 1, mu = mu, Sigma = vcov)
-# Compare against our observed coefficients mu
-mu
-# They're different!
-
-# Let's get 1000 simulated coefficients
-sims3 = data.frame(MASS::mvrnorm(n = 1000, mu = mu, Sigma = vcov)) %>%
-  rename(intercept = 1) # give the intercept a readable name
-
-head(sims3, 5) # view them!
-
-
-# For each predictor value of x,
-# we're going to calculate a simulated y-predicted value,
-# by computing the model equation with the new varied beta coefficients
-sims3 = x %>%
+# First, we'll get some simulations...
+sims = qis1 %>%
+  # Get just the two scenarios...
+  filter(pop_black == 0 | pop_black == 0.25) %>%
+  # Add a unique ID
   mutate(id = 1:n()) %>%
+  # For each scenario...
   group_by(id, pop_black) %>%
+  # simulate error
   reframe(
-    ysim = intercept * sims3$intercept + 
-      pop_black * sims3$pop_black +
-      pop_hisplat * sims3$pop_hisplat +
-      pop * sims3$pop +
-      median_income * sims3$median_income
+    ysim = yhat + rnorm(n = 1000, mean = 0, sd = se)
   )
 
-# View our estimates!
-sims3
-
-# Estimate quantities of interest, having accounted for estimation uncertainty.
-qis3 = sims3 %>% 
-  group_by(id, pop_black) %>%
-  reframe(lower = quantile(ysim, probs = 0.025),
-          median = quantile(ysim, probs = 0.50),
-          upper = quantile(ysim, probs = 0.975))
-
-# View our quantities of interest!
-qis3
-
-
-# Visualize our quantities of interest!
-# and add a line plot and points afterwards
-ggplot() +
-  geom_ribbon(data = qis3, mapping = aes(x = pop_black, ymin = lower, ymax = upper), 
-              fill = "steelblue", alpha = 0.5) +
-  geom_line(data = qis3, mapping = aes(x = pop_black, y = median)) +
-  geom_point(data = qis3, mapping = aes(x = pop_black, y = median), size = 3)
-
-
-# 4. Estimation and Fundamental Uncertainty ##############################
-
-# Alternatively, we could try an even more robust form of simulation,
-# where we account for MULTIPLE types of uncertainty.
-# We simulate estimation uncertainty by varying our beta coefficients,
-# and then
-# we simulate fundamental uncertainty by varying the resulting predictions.
-
-
-# Extract some ingredients for simulation
-mu = m$coefficients # get alpha/beta coefficients
-vcov = vcov(m) # get variance covariance matrix
-sigma = glance(m)$sigma # get root mean squared error 
-
-
-# Let's get 1000 simulated coefficients
-sims4 = data.frame(MASS::mvrnorm(n = 1000, mu = mu, Sigma = vcov)) %>%
-  rename(intercept = 1) # give the intercept a readable name
-
-# Let's compute the model equations for each to get predictions, like before,
-# incorporating estimation uncertainty.
-sims4 = x %>%
-  mutate(id = 1:n()) %>%
-  group_by(id, pop_black) %>%
+# Then, let's calculate some simulated differences,
+# for each pair of simulations
+diffs = sims %>%
   reframe(
-    ysim = intercept * sims4$intercept + 
-      pop_black * sims4$pop_black +
-      pop_hisplat * sims4$pop_hisplat +
-      pop * sims4$pop +
-      median_income * sims4$median_income
+    y0 = ysim[pop_black == 0],
+    y1 = ysim[pop_black == 0.25],
+    diff = y1 - y0
   )
 
-# Let's account for fundamental uncertainty!
-# For each simulation, we'll now vary it slightly using random draws 
-# from a normal distribution with a standard deviation matching the residual standard error
-pvs = sims4 %>%
-  group_by(id, pop_black) %>%
+# Then, let's get some confidence intervals around those differences
+effects = diffs %>%
   reframe(
-    ysim = ysim + rnorm(n = n(), mean = 0, sd = sigma)
+    lower = quantile(diff, probs = 0.025),
+    estimate = quantile(diff, probs = 0.50),
+    upper = quantile(diff, probs = 0.975)
   )
 
-# Take these predicted values and get quantities of interest.
-qis4 = pvs %>%
-  group_by(id, pop_black) %>%
-  reframe(lower = quantile(ysim, probs = 0.025),
-          median = quantile(ysim, probs = 0.50),
-          upper = quantile(ysim, probs = 0.975))
-qis4
-
-
-# COMPARE ############################################
-
-# Let's end by comparing these predictions.
-
-viz = bind_rows(
-  qis1 %>% mutate(type = "Prediction\n\n") %>% 
-    select(estimate = yhat, lower, upper, type, pop_black),
-  qis2 %>% mutate(type = "Simulated\nFundamental\nUncertainty\n") %>% 
-    select(estimate = median, lower, upper, type, pop_black),
-  qis3 %>% mutate(type = "Simulated\nEstimation\nUncertainty\n") %>%
-    select(estimate = median, lower, upper, type, pop_black),
-  qis4 %>% mutate(type = "Simulated\nEstimation &\nFundamental\nUncertainty\n") %>%
-    select(estimate = median, lower, upper, type, pop_black)
-)
-
-viz
-
-# view it!
-ggplot() +
-  geom_ribbon(
-    data = viz, 
-    mapping = aes(x = pop_black, ymin = lower, ymax = upper, 
-                  group = type, fill = type), 
-    alpha = 0.5)
-
-
-rm(list = ls())
-
+# Show the marginal effect of the share of black residents 
+# increasing from 0 to 0.25
+# on the predicted change in food index.
+effects
 
