@@ -47,13 +47,15 @@
 # !pip install pandas
 # !pip install scipy
 # !pip install plotnine
+# !pip install statsmodels
+
 
 # Load Packages
 import pandas as pd
 from plotnine import *
 import statsmodels.api as sm
 # Import these functions from scipy.stats package
-from scipy.stats import norm, expon, gamma, weibull_min, poisson, uniform, binom
+from scipy.stats import norm
 
 # Load data - county outcomes and traits in 2019
 counties = pd.read_csv("L/food_deserts.csv")
@@ -72,12 +74,15 @@ m = sm.formula.ols(
   data = counties).fit()
 
 
+m.summary()
+
+
 # Let's get a set of hypothetical x values for which to simulate y
 # We'll get the medians, but we'll vary the percentage of black residents from 0 to 100%
 
 x = pd.DataFrame({
   'intercept': 1,
-  'pop_black': [0, 0.25, 0.50, 0.75, 1],
+  'pop_black': [0, 25, 50, 75, 100],
   'pop_hisplat': counties.pop_hisplat.quantile(q = 0.5),
   'pop': counties['pop'].quantile(q = 0.5),
   'median_income': counties.median_income.quantile(q = 0.5),
@@ -87,6 +92,8 @@ x = pd.DataFrame({
 x
 
 
+
+
 # 1. Prediction #######################################
 
 # First, we'll try a prediction using the build-in functions.
@@ -94,8 +101,10 @@ x
 # Generate predictions and return standard errors for each prediction,
 p = m.get_prediction(x).summary_frame(alpha = 0.95)
 
+
 # View it
 p
+
 # we care about the columns 'mean', 'mean_se', 'mean_ci_lower', and 'mean_ci_upper'
 # These have nothing to do with the mean - they mean prediction
 
@@ -107,7 +116,10 @@ qis1['se'] = p['mean_se']
 qis1['lower'] = p['obs_ci_lower']
 qis1['upper'] = p['obs_ci_upper']
 
+
 # View output
+qis1
+
 
 # Make a data.frame of predicted values, 
 # by appending on the fitted/predicted values 
@@ -133,6 +145,13 @@ qis1
 )
 
 
+# Note: in the original video, I evaluated this at levels 0 to 0.25,
+# but it really should be the change from 0 to 25, since the % is measured where 1 = 1%.
+# So we actually see a very big, statistically significant decline in the food environment index!
+
+
+
+
 # Simulating Marginal Effects ####################################
 
 # We're going to simulate error from a normal distribution,
@@ -142,24 +161,39 @@ qis1
 # Get back 5 values drawn from normal distribution with mean of 3 and sd of 0.5
 norm.rvs(loc = 3, scale = 0.5, size = 5)
 
+
+
 # Finally, let's estimate the marginal effect 
-# of the share of black residents changing from 0 to 0.25.
+# of the share of black residents changing from 0 to 25.
 
 # First, we'll get some simulations...
 # Get just the two scenarios...
-sims = qis1.query('pop_black == 0 or pop_black == 0.25')
+sims = qis1.query('pop_black == 0 or pop_black == 25')
+
+sims
+
 # Add a unique ID
 sims['id'] = pd.Series( range(1, len(sims) + 1) ) # throws an error, but works
+
+sims
 
 # For each scenario, simulate error using 1000 simulations
 sims = sims.groupby( ['id', 'pop_black'] ).apply(lambda df: pd.Series({
   'yhat': df.yhat.values[0],
   'error': norm.rvs(loc = 0, scale = df.se, size = 1000) 
 })).reset_index()
+
+sims
+
 # Pivot the error longer so we have ~5000 simulations
 sims = sims.explode('error')
+
+sims
+
 # Add the error to the yhats to get simulated y predictions
 sims['ysim'] = sims['yhat'] + sims['error']
+
+
 # View it!
 sims
 
@@ -169,10 +203,14 @@ sims
 # Put the scenario simulations side by side...
 diffs = pd.DataFrame({
   'y0': sims.query('pop_black == 0').ysim.values,
-  'y1': sims.query('pop_black == 0.25').ysim.values
+  'y1': sims.query('pop_black == 25').ysim.values
 })
+
+diffs
+
 # Calculate the difference!
-diffs['diff'] = diffs.y1 - diffs.y0
+diffs['diff'] = diffs['y1'] - diffs['y0']
+
 
 # Then, let's get some confidence intervals around those differences
 effects = pd.DataFrame({
@@ -187,10 +225,10 @@ effects = pd.DataFrame({
 # on the predicted change in food index.
 effects
 
-# Okay, so though we see a decline, that decline from 0 to 0.25 in pop_black
-# is not matched by a statistically significant decline in the food environment index.
+# Note: in the original video, I evaluated this at levels 0 to 0.25,
+# but it really should be the change from 0 to 25, since the % is measured where 1 = 1%.
+# So we actually see a very big, statistically significant decline in the food environment index!
 
-# But what if we added more controls to our model? Probably might be.
 
 # Cleanup!
 globals().clear()

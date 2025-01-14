@@ -52,26 +52,30 @@ library(ggplot2)
 # Load data - county outcomes and traits in 2019
 counties = read_csv("L/food_deserts.csv")
 
+counties
 counties %>% glimpse()
 
 # Estimate a model predicting the food environment index,
 # based on the share of Black residents, share of Hispanic/Latino residents,
-# population, median income, and share of Democrats in 2016
+# population, median income
 m = counties %>%
   lm(formula = food_env_index ~ pop_black + pop_hisplat + pop + median_income) 
 
+m
 
 # Let's get a set of hypothetical x values for which to simulate y
 # We'll get the medians, but we'll vary the percentage of black residents from 0 to 100%
 x = counties %>%
   reframe(
     intercept = 1,
-    pop_black = c(0, 0.25, 0.50, 0.75, 1),
+    pop_black = c(0, 25, 50, 75, 100),
     pop_hisplat = median(pop_hisplat),
     pop = median(pop),
     median_income = median(median_income) )
 # View
 x
+
+
 
 # 1. Prediction #######################################
 
@@ -110,32 +114,48 @@ ggplot() +
   geom_point(data = qis1, mapping = aes(x = pop_black, y = yhat), size = 3)
 
 
+
+
 # Simulating Marginal Effects ####################################
 
 # Finally, let's estimate the marginal effect 
 # of the share of black residents changing from 0 to 0.25.
 
+# get random draws from a normal distribution...
+# whose mean is 0...
+# and whose standard deviation matches the average prediction error sigma (se)
+rnorm(n = 5, mean = 0, sd = 0.0205)
+
 # First, we'll get some simulations...
 sims = qis1 %>%
   # Get just the two scenarios...
-  filter(pop_black == 0 | pop_black == 0.25) %>%
+  filter(pop_black == 0 | pop_black == 25) %>%
   # Add a unique ID
   mutate(id = 1:n()) %>%
   # For each scenario...
   group_by(id, pop_black) %>%
   # simulate error
   reframe(
-    ysim = yhat + rnorm(n = 1000, mean = 0, sd = se)
+    yhat = yhat,
+    error = rnorm(n = 1000, mean = 0, sd = se),
+    ysim = yhat + error
   )
+
+sims
 
 # Then, let's calculate some simulated differences,
 # for each pair of simulations
 diffs = sims %>%
   reframe(
     y0 = ysim[pop_black == 0],
-    y1 = ysim[pop_black == 0.25],
+    y1 = ysim[pop_black == 25],
     diff = y1 - y0
   )
+
+diffs
+
+diffs$diff %>% hist()
+
 
 # Then, let's get some confidence intervals around those differences
 effects = diffs %>%
@@ -146,7 +166,12 @@ effects = diffs %>%
   )
 
 # Show the marginal effect of the share of black residents 
-# increasing from 0 to 0.25
+# increasing from 0 to 25%
 # on the predicted change in food index.
 effects
 
+# There is a statistically significant difference in the food environment index
+# as the share of black residents changes from 0 to 25%.
+
+# Clean up
+rm(list = ls())
