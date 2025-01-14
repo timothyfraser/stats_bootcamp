@@ -21,6 +21,7 @@ from plotnine import *
 # Import data
 avg = pd.read_csv("K/avg_annual_footprint.csv")
 
+avg
 
 # Plot the raw data, using geom_point() and geom_line(). 
 # What do we observe?
@@ -43,10 +44,14 @@ gg
 
 # Calculate the model equation for that line of best fit, 
 # using your dataframe avg and the ols(...).fit() function.
+
 # What rate of emissions was an average Japanese city projected
 # to produce in the year 0 CE? 
+
 # How much does the average carbon footprint increase 
 # with every passing year, according to your model’s beta coeficient?
+
+
 
 
 
@@ -54,6 +59,7 @@ gg
 
 # Examine the model table, using summary().
 # How likely is it that these two statistics (alpha and beta) were just that extreme by chance?
+
 
 
 
