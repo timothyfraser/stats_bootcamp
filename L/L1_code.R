@@ -23,6 +23,13 @@
 # University of Wisconsin’s County Health Rankings, 
 # which measures access to healthy foods in each county. 
 
+# Food Environment Index:
+# An Index of factors that contribute to a healthy food environment, 
+# from 0 (worst) to 10 (best).
+
+# Read more about the food environment index here!
+# https://www.countyhealthrankings.org/health-data/health-factors/health-behaviors/diet-and-exercise/food-environment-index?year=2024
+
 # Using just a few covariates, we estimate the relationship 
 # between key demographic traits and access to healthy foods. 
 # This workshop highlights how racial and ethnic minorities groups 
