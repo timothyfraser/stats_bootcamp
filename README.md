@@ -22,10 +22,7 @@ end
 subgraph p3["Path 3: Math for Statistics"]
     M["<b>M</b><br>Calculus"]
     N["<b>N</b><br>Probability Rules"]
-    O["<b>O</b><br>Conditional Probability"]
-    P["<b>P</b><br>Probability Distributions"]
-    Q["<b>Q</b><br>Applications of<br>Probability Distributions"]
-    R["<b>R</b><br>Joint Distributions"]
+    O["<b>O</b><br>Probability Distributions"]
 end
 
 subgraph p2["Path 2: Inferential Stats"]
@@ -51,7 +48,7 @@ Z --> A
 A --> B --> C --> D
 A --> E --> F --> G --> H --> I
 F --> J --> K --> L
-A --> M --> N --> O --> P --> Q --> R
+A --> M --> N --> O 
 
 
 %%class Z,A path0;
@@ -68,6 +65,7 @@ classDef path0 fill:#D3DEFB,stroke:#FFFFFF;
 classDef path1 fill:#648FFF,stroke:#FFFFFF;
 classDef path2 fill:#FFB000,stroke:#FFFFFF;
 classDef path3 fill:#FE6100,stroke:#FFFFFF;
+
 
 
 ```
