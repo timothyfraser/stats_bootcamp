@@ -1,8 +1,22 @@
-# README
+# Module I: Crosstabulation (Chi-squared)
 
-This module focuses on crosstabulation and the chi-squared statistic.
-We will learn how to evaluate statistically significant relationships between categorical variables, using the Palmer's Penguins dataset.
+Module I focuses on crosstabulation and the chi-squared statistic for evaluating statistically significant relationships between categorical variables.
 
-This describes 344 penguins observed by Palmer Station researchers in Antarctica.
-See here for source data and documentation.
-https://cran.r-project.org/web/packages/palmerpenguins/readme/README.html
+---
+
+## Table of Contents
+
+- 💻 [I1_code.R](I1_code.R)
+- 💻 [I1_code.py](I1_code.py)
+- 💾 [palmerpenguins.csv](palmerpenguins.csv)
+
+---
+
+## Links
+
+- **Lessons**
+    - 🎥 [Watch: Lesson I1.1 - Crosstabulation & Chi-squared in R](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=21ae0c23-00fd-447b-8afe-b262002fc1b5)
+    - 🎥 [Watch: Lesson I1.2 - Crosstabulation & Chi-squared in Python](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=05c57e35-6af1-46f1-9bd3-b2620033666f)
+- **Activities**
+    - 🎯 [Activity: I1_code.R - Chi-squared training](https://github.com/timothyfraser/stats_bootcamp/blob/main/I/I1_code.R)
+    - 🎯 [Activity: I1_code.py - Chi-squared training](https://github.com/timothyfraser/stats_bootcamp/blob/main/I/I1_code.py)

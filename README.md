@@ -77,11 +77,17 @@ subgraph p0["START HERE"]
     A["<b>A</b><br>Statistical Coding"]
 end
 
+subgraph p4["Path 4: Data Science for Statistics"]
+    Q["<b>Q</b><br>..."]
+    R["<b>R</b><br>Functions, Iteration,<br>Loops, & Callbacks"]
+    S["<b>R</b><br>Github for<br>Data Science"]
+end
+
 subgraph p3["Path 3: Math for Statistics"]
     M["<b>M</b><br>Calculus"]
     N["<b>N</b><br>Probability Rules"]
     O["<b>O</b><br>Probability Distributions"]
-
+    P["<b>P</b><br>Optimization"]
 end
 
 subgraph p2["Path 2: Inferential Stats"]
@@ -108,6 +114,7 @@ A --> B --> C --> D
 A --> E --> F --> G --> H --> I
 F --> J --> K --> L
 A --> M --> N --> O 
+A --> Q --> R --> S
 
 
 %%class Z,A path0;
@@ -119,12 +126,13 @@ class p0 path0;
 class p1 path1;
 class p2 path2;
 class p3 path3;
+class p4 path4;
 
 classDef path0 fill:#D3DEFB,stroke:#FFFFFF;
 classDef path1 fill:#648FFF,stroke:#FFFFFF;
 classDef path2 fill:#FFB000,stroke:#FFFFFF;
 classDef path3 fill:#FE6100,stroke:#FFFFFF;
-
+classDef path4 fill:#fba835,stroke:#FFFFFF;
 
 
 ```
