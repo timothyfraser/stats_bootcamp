@@ -1,7 +1,6 @@
-# Module S: Using GitHub for Version Control
+# Module S: ???
 
-Module S introduces version control using GitHub for managing statistical code and collaborating on projects.
-
+Module S teaches ???
 
 ---
 

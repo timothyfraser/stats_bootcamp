@@ -1,12 +1,15 @@
-# Module Q: ???
+# Module Q: Functions, Iteration, Loops, and Callbacks
 
-Module Q teaches ???
+Module Q teaches how to create functions, use iteration and loops, and implement callbacks in R and Python for statistical programming.
 
 ---
 
 ## Table of Contents
 
-- (Code files will be added here when available)
+- 💻 [Q1_code.R](Q1_code.R)
+- 💻 [Q2_code.R](Q2_code.R)
+- 💻 [Q3_code.R](Q3_code.R)
+- 💻 [Q4_code.R](Q4_code.R)
 
 ---
 

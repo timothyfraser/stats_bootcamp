@@ -1,13 +1,13 @@
-# Module R: Functions, Iteration, Loops, and Callbacks
+# Module R: Using GitHub for Version Control
 
-Module R teaches how to create functions, use iteration and loops, and implement callbacks in R and Python for statistical programming.
+Module R introduces version control using GitHub for managing statistical code and collaborating on projects.
+
 
 ---
 
 ## Table of Contents
 
-- 💻 [R1_code.R](R1_code.R)
-- 💻 [R2_code.R](R2_code.R)
+- (Code files will be added here when available)
 
 ---
 

@@ -5,6 +5,17 @@ Welcome to our Github Repository for the **Statistics Bootcamp** for Cornell Uni
 - Last Updated: Winter 2025
 - Maintainer: Tim Fraser <tmf77@cornell.edu>
 
+---
+
+## Table of Contents
+
+- [Read: Syllabus](docs/syllabus.md)
+- [Read: Earn Your Certificate](docs/certificate.md)
+- [Read: List of Modules](#modules)
+- [Use: CANVAS course site](https://canvas.cornell.edu/courses/75015)
+
+---
+
 ## Program Highlights
 
 - 🎥 **Learn statistics and probability through short online modules**, complete with videos and instructor office hours.
@@ -60,9 +71,9 @@ This Stats Bootcamp is made up of several modules, which you may progress throug
 
 ### 🟧 Part 4: Data Science for Statistics
 
-- 🔢 [Q. TBD](Q/)
-- 🔄 [R. Functions, Iteration, Loops, and Callbacks](R/)
-- 📦 [S. Using GitHub for Version Control](S/)
+- 🔄 [Q. Functions, Iteration, Loops, and Callbacks](Q/)
+- 📦 [R. Using GitHub for Version Control](R/)
+- 🔢 [S. TBD](S/)
 
 ---
 
@@ -78,9 +89,9 @@ subgraph p0["START HERE"]
 end
 
 subgraph p4["Path 4: Data Science for Statistics"]
-    Q["<b>Q</b><br>..."]
-    R["<b>R</b><br>Functions, Iteration,<br>Loops, & Callbacks"]
-    S["<b>R</b><br>Github for<br>Data Science"]
+    Q["<b>Q</b><br>Functions, Iteration,<br>Loops, & Callbacks"]
+    R["<b>R</b><br>Github for<br>Data Science"]
+    S["<b>S</b><br>..."]
 end
 
 subgraph p3["Path 3: Math for Statistics"]
