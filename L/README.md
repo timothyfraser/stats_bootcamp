@@ -25,4 +25,8 @@ Module L introduces prediction and simulation techniques for using regression mo
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

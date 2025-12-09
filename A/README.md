@@ -40,4 +40,11 @@ Module A introduces statistical coding using R or Python for students with zero 
 
 ---
 
+
+---
+
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

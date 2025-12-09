@@ -28,4 +28,8 @@ Module E introduces sampling distributions, confidence intervals, and the centra
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

@@ -27,4 +27,8 @@ Module G introduces t-tests for comparing means between two groups, including in
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

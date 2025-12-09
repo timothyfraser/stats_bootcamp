@@ -25,4 +25,8 @@ Module J focuses on correlation and the Pearson's r statistic for evaluating sta
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

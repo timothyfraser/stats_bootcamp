@@ -23,4 +23,8 @@ Module P introduces optimization techniques used in statistical analysis and sys
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

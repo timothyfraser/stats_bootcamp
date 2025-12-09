@@ -43,4 +43,8 @@ Module K introduces regression analysis, including bivariate and multivariate re
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

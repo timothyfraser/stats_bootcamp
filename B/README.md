@@ -28,4 +28,8 @@ Module B introduces descriptive statistics for analyzing distributions, includin
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

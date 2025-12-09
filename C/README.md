@@ -29,4 +29,8 @@ Module C introduces visualization techniques for exploring and understanding dat
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

@@ -26,4 +26,8 @@ Module Q teaches how to create functions, use iteration and loops, and implement
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

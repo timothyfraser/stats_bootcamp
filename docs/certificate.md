@@ -86,3 +86,13 @@ If you have further questions about certificate eligibility or requirements, ple
 ---
 
 🎓 **Good luck with your Statistics Bootcamp journey!** 
+
+
+
+---
+
+![](image_icons.png)
+
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

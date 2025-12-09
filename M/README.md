@@ -28,4 +28,8 @@ Module M covers calculus fundamentals for statistics, including algebra, derivat
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

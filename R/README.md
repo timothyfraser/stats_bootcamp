@@ -24,4 +24,8 @@ Module R introduces version control using GitHub for managing statistical code a
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

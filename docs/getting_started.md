@@ -1,67 +1,83 @@
-# READ: How to Succeed in this Bootcamp
+# Getting Started
 
-This bootcamp is a compressed 2 week course! This means each week, we cover LOTS of content! What actions can participants take to succeed in this course?
+![Banner Image](image_banner.png)
 
-- **Focus on the topics that you need help with most**! There are no grades from this bootcamp, so try out the sections you feel you need the most support with! Try out 1 or more of these suggested pathways (see chart below).
+Welcome to the **Probability and Statistics Bootcamp** (or Stats Bootcamp for short) at Cornell Systems Engineering!
 
-- **Post and Answer Questions on EdDiscussion**: In a virtual course, our EdDiscussion board can help connect you with colleagues, and can give you faster feedback from your peers than your professor could do alone. You can share ideas, code, math, pictures, and more. Highly recommend!
+Your instructor is **Tim Fraser, PhD**, an assistant teaching professor in the program specializing in data science, statistics, and computational social science.
 
-- **Get to know your colleagues**! 2 people working on the same problem just see more possibilities than one person can alone!
+---
 
-- **Come to Office Hours**! I am eager to tailor this bootcamp to fit your needs and interests. You can help improve this course by telling me ASAP when you run into issues. I am here to support.
+## Quick Start Checklist
+
+1. **Accept the Invitation Email** to join our Canvas course, sent to your Cornell email address!
+2. **Set aside time**: Our Bootcamp runs **January 5 to January 16** (2 weeks). Please set aside time during these two weeks to complete the trainings for our modules.
+3. **Check out EdDiscussion**, our message board for asking questions and getting help.
+
+> **Important**: You can start early, but you can't finish late! You are welcome to complete existing modules **early**, before January 5. We will continue to add more modules to the bootcamp, so not all modules will be available until January 5. However, the bootcamp closes on January 16 - so be sure to finish in time!
+
+---
+
+## Frequently Asked Questions
+
+- **Where's our Canvas Course?** Go to [Canvas Course Site](https://canvas.cornell.edu/courses/75015)
+
+- **How do I get started?** On Canvas, navigate to the **Modules** page to our "Getting Started Module", and click on **"Watch: Welcome to this Bootcamp!"**
+
+![](image_how_to_get_started.png)
+
+- **How do I unlock modules?** To get started, you need to finish the **Getting Started module** and **Statistical Coding module**. These intro modules unlock the rest of the course.
+
+![](image_how_to_find_modules_on_canvas.png)
+
+- **When are new modules released?** Our course content will be released according to the schedule shown here, with new content every day.
+
+- **Should I learn R or Python?** Check out [**"Read: Which Programming Language Should I choose?"**](https://canvas.cornell.edu/courses/75015/pages/read-which-programming-language-should-i-choose) This may help you in your decision!
+
+- **How to ask questions:** Post questions to peers and your instructor on our **EdDiscussion** site! Highly recommended. Best way to get a fast answer. We encourage you to answer questions for your peers!
+
+- **How to meet with your instructor:** No need to email; You can book a virtual appointment here! See the Welcome video for more information.
+
+- **Video Formatting:** Note that the video format may change slightly day to day, but should be standardized once our full staff team returns from winter break.
+
+---
+
+## Program Highlights
+
+- 🎥 **Learn statistics and probability through short online modules**, complete with videos and instructor office hours.
+
+- 🎛️ **Customize your bootcamp path**: choose from ~15 modules to refresh skills or learn brand-new ones. Most students complete >5, but you can tackle all modules if you want.
+
+- 📚 **Module options include**: Intro to Statistical Coding, Descriptive Statistics & Distributions, Difference of Means (t-tests), Probability, Simulation, Optimization, Calculus for Probability & Statistics, and more.
+
+- 🐍📊 **Choose your coding environment**: every module includes R and Python scripts, walkthrough videos, and repeatable practice quizzes.
+
+- 🔁 **No grades**: instead, use optional, unlimited-attempt quizzes to check your understanding as you go.
+
+- 🏅 **Earn a Statistics Bootcamp Certificate** by completing quizzes across the modules you select. Use the certificate to show employers or instructors that you're trained in core statistical methods.
+
+---
+
+## Next Steps
+
+- Read the [**Syllabus**](syllabus.md) for more details!
+- Check out [**How to Succeed**](how_to_succeed.md) for tips on getting the most out of the bootcamp.
+- Visit the [**Main Bootcamp Page**](../README.md) to see all available modules.
+
+---
+
+**Very excited to work with you all!**
+
+Best,
+
+**Dr. Tim Fraser**  
+Bootcamp Lead Instructor
 
 
-```mermaid
-flowchart TD
+---
 
+![](image_icons.png)
 
-subgraph p0["START HERE"]
-    Z["Getting<br>Started"]
-    A["<b>A</b><br>Statistical Coding"]
-end
+---
 
-subgraph p4["Path 4: Data Science for Statistics"]
-    Q["<b>Modules Q-S</b>"]
-end
-
-subgraph p3["Path 3: Math for Statistics"]
-    M["<b>Modules M-P</b>"]
-end
-
-subgraph p2["Path 2: Inferential Stats"]
-    E["<b>Modules E-L</b>"]
-end
-
-subgraph p1["Path 1: Descriptive Stats"]
-    B["<b>Modules B-D</b>"]
-end
-
-
-
-Z --> A
-A --> B 
-A --> E 
-A --> M   
-A --> Q  
-
-
-%%class Z,A path0;
-%%class B,C,D path1;
-%%class E,F,G,H,I,J,K,L path2;
-%%class M,N,O,P,Q,R path3;
-
-class p0 path0;
-class p1 path1;
-class p2 path2;
-class p3 path3;
-class p4 path4;
-
-classDef path0 fill:#D3DEFB,stroke:#FFFFFF;
-classDef path1 fill:#648FFF,stroke:#FFFFFF;
-classDef path2 fill:#FFB000,stroke:#FFFFFF;
-classDef path3 fill:#FE6100,stroke:#FFFFFF;
-classDef path4 fill:#fba835,stroke:#FFFFFF;
-
-
-```
-
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

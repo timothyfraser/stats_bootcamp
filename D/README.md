@@ -38,4 +38,8 @@ Module D introduces data wrangling techniques for cleaning, transforming, filter
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

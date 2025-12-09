@@ -23,4 +23,8 @@ Module I focuses on crosstabulation and the chi-squared statistic for evaluating
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

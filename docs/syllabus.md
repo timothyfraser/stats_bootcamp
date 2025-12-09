@@ -119,3 +119,12 @@ Cornell has trained counselors available to listen and help:
 - **[Let's Talk](https://health.cornell.edu/services/counseling-psychiatry/lets-talk)**
 
 The **[Learning Strategies Center](http://lsc.cornell.edu/)** offers a range of academic resources. Please go to [mentalhealth.cornell.edu](https://mentalhealth.cornell.edu) to learn more.
+
+
+---
+
+![](image_icons.png)
+
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

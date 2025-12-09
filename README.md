@@ -1,8 +1,11 @@
 # ⭐ 2026 Statistics Bootcamp for Systems Engineering
 
+![Banner Image](docs/image_banner.png)
+
+
 Welcome to our Github Repository for the **Statistics Bootcamp** for Cornell University Systems Engineering Program!
 
-- Last Updated: Winter 2025
+- Last Updated: Winter 2026
 - Maintainer: Tim Fraser <tmf77@cornell.edu>
 
 ---
@@ -148,3 +151,10 @@ classDef path4 fill:#fba835,stroke:#FFFFFF;
 
 ```
 
+---
+
+![](image_icons.png)
+
+---
+
+← 🏠 [Back to Top](#Table-of-Contents)

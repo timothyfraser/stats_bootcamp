@@ -27,4 +27,8 @@ Module H introduces Analysis of Variance (ANOVA) for comparing means across thre
 
 ---
 
+![](../docs/image_icons.png)
+
+---
+
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)
