@@ -22,3 +22,7 @@ Module J focuses on correlation and the Pearson's r statistic for evaluating sta
     - 🎯 [Activity: J1_code.py - Correlation training](https://github.com/timothyfraser/stats_bootcamp/blob/main/J/J1_code.py)
 - **Learning Checks**
     - ✅ [Quiz: Correlation](https://canvas.cornell.edu/courses/75015/modules/items/2950753)
+
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

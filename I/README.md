@@ -20,3 +20,7 @@ Module I focuses on crosstabulation and the chi-squared statistic for evaluating
 - **Activities**
     - 🎯 [Activity: I1_code.R - Chi-squared training](https://github.com/timothyfraser/stats_bootcamp/blob/main/I/I1_code.R)
     - 🎯 [Activity: I1_code.py - Chi-squared training](https://github.com/timothyfraser/stats_bootcamp/blob/main/I/I1_code.py)
+
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

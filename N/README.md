@@ -27,3 +27,6 @@ Module N introduces probability rules, set notation, counting principles, and pr
 - **Resources**
     - (Resources will be added here)
 
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

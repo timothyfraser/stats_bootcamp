@@ -20,3 +20,7 @@ Module O covers probability distributions, including discrete and continuous dis
     - (Learning checks will be added here)
 - **Resources**
     - (Resources will be added here)
+
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

@@ -20,8 +20,8 @@ Welcome to our Github Repository for the **Statistics Bootcamp** for Cornell Uni
 
 - 🎥 **Learn statistics and probability through short online modules**, complete with videos and instructor office hours.
 
-- 🎛️ **Customize your bootcamp path**: choose from ~15 modules to refresh skills or learn brand-new ones.
-Most students complete >5, but you can tackle all 15 if you want.
+- 🎛️ **Customize your bootcamp path**: choose from >15 modules to refresh skills or learn brand-new ones.
+Most students complete >5, but you can tackle all modules if you want.
 
 - 📚 **Module options include**: Intro to Statistical Coding, Descriptive Statistics & Distributions, Difference of Means (t-tests), Probability, Simulation, Optimization, Calculus for Probability & Statistics, and more.
 

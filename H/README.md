@@ -25,3 +25,6 @@ Module H introduces Analysis of Variance (ANOVA) for comparing means across thre
 - **Learning Checks**
     - ✅ [Quiz: ANOVA](https://canvas.cornell.edu/courses/75015/modules/items/2946397)
 
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

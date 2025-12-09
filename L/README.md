@@ -23,3 +23,6 @@ Module L introduces prediction and simulation techniques for using regression mo
     - 🎯 [Activity: L1_code.R - Prediction in R](https://github.com/timothyfraser/stats_bootcamp/blob/main/L/L1_code.R)
     - 🎯 [Activity: L1_code.py - Prediction in Python](https://github.com/timothyfraser/stats_bootcamp/blob/main/L/L1_code.py)
 
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

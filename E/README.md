@@ -26,3 +26,6 @@ Module E introduces sampling distributions, confidence intervals, and the centra
 - **Learning Checks**
     - ✅ [Quiz: Sampling Distributions](https://canvas.cornell.edu/courses/75015/modules/items/2930271)
 
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

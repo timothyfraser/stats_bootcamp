@@ -26,3 +26,6 @@ Module B introduces descriptive statistics for analyzing distributions, includin
 - **Learning Checks**
     - ✅ [Quiz: Descriptive Statistics](https://canvas.cornell.edu/courses/75015/modules/items/2904334)
 
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

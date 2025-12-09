@@ -41,3 +41,6 @@ Module K introduces regression analysis, including bivariate and multivariate re
 - **Learning Checks**
     - ✅ [Quiz: Regression](https://canvas.cornell.edu/courses/75015/modules/items/2959553)
 
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

@@ -37,3 +37,7 @@ Module A introduces statistical coding using R or Python for students with zero 
 - **Resources**
     - 🎥 [(Optional) Watch: Setup Free Google Colab for Coding in Python [only if you prefer it to Posit Cloud]](https://youtu.be/vuFTrylVwno?si=Ksh0cnFIjpNcyaX4)
     - 🎯 [(Optional) Activity: Signup for Google Colabs (for Python only) [only if you prefer it to Posit Cloud]](https://colab.research.google.com/)
+
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

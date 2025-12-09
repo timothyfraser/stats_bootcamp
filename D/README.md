@@ -36,3 +36,6 @@ Module D introduces data wrangling techniques for cleaning, transforming, filter
     - ✅ [Quiz: Data Wrangling](https://canvas.cornell.edu/courses/75015/modules/items/2909843)
     - 🔍 [Review: Quiz Solutions - Data Wrangling](https://canvas.cornell.edu/courses/75015/modules/items/2937618)
 
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

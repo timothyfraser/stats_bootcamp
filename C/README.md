@@ -27,3 +27,6 @@ Module C introduces visualization techniques for exploring and understanding dat
     - ✅ [Quiz: Distributions](https://canvas.cornell.edu/courses/75015/modules/items/2904328)
     - 🔍 [Review: Quiz Solutions - Visualizing Distributions](https://canvas.cornell.edu/courses/75015/modules/items/2937614)
 
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

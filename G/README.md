@@ -25,3 +25,6 @@ Module G introduces t-tests for comparing means between two groups, including in
 - **Learning Checks**
     - ✅ [Quiz: Difference of Means](https://canvas.cornell.edu/courses/75015/modules/items/2937876)
 
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)

@@ -21,3 +21,6 @@ Module S teaches ???
 - **Resources**
     - (Resources will be added here)
 
+---
+
+← 🏠 [Back to Statistics Bootcamp Home](../README.md)
