@@ -44,7 +44,7 @@ The boot camp will give students a working knowledge of basic probability and st
 > **Note:** This boot camp is **not graded**, nor is it for credit.
 
 ### Learning Check Assignment
-Each week, there will be **Learning Check quizzes** - these are not handed in; instead, participants will receive the solutions and can self-assess their progress.
+Each module, there will be **Learning Check quizzes** - these are not handed in; instead, participants will receive the solutions and can self-assess their progress.
 
 ### Proficiency Assessments
 There will also be **proficiency assessment examinations**, which are entirely optional. If you choose to take the proficiency assessment examinations, they will be graded and the scores reported to you.
@@ -95,7 +95,7 @@ The following textbooks will be used regularly and are recommended:
 - **If Python:** [Google Colab](https://colab.research.google.com) (only if you don't want to use Posit.Cloud)
 
 ### Coding Tutorials & Skill Tutorials
-Course tutorials for each week can be accessed online by link on Canvas.
+Course tutorials for each module can be accessed online by link on Canvas.
 
 ---
 
