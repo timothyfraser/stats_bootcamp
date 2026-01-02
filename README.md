@@ -128,7 +128,8 @@ A --> B --> C --> D
 A --> E --> F --> G --> H --> I
 F --> J --> K --> L
 A --> M --> N --> O --> P
-A --> Q --> R --> S
+M --> S
+A --> Q --> R
 
 
 %%class Z,A path0;
