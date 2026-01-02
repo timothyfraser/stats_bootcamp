@@ -94,7 +94,7 @@ end
 subgraph p4["Path 4: Data Science for Statistics"]
     Q["<b>Q</b><br>Functions, Iteration,<br>Loops, & Callbacks"]
     R["<b>R</b><br>Github for<br>Data Science"]
-    S["<b>S</b><br>..."]
+    S["<b>S</b><br>Calculus with Statistical Coding!"]
 end
 
 subgraph p3["Path 3: Math for Statistics"]
@@ -127,9 +127,11 @@ Z --> A
 A --> B --> C --> D
 A --> E --> F --> G --> H --> I
 F --> J --> K --> L
-A --> M --> N --> O 
-A --> Q --> R --> S
-
+A --> M --> N --> O --> P
+M --> S
+A --> Q
+Q --> S
+Q --> R
 
 %%class Z,A path0;
 %%class B,C,D path1;
