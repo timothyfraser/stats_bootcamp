@@ -16,7 +16,7 @@
 
 - **Instructor:** Dr. Timothy Fraser
 - **Email:** tmf77@cornell.edu
-- **Office:** Carpenter Hall B01F (unless stated otherwise, all office hours will be virtual. Folks in Ithaca are welcome to visit in-person; just let me know that you are coming.)
+- **Office:** Rhodes Hall 404 (unless stated otherwise, all office hours will be virtual. Folks in Ithaca are welcome to visit in-person; just let me know that you are coming.)
 - **Office Hours:** Varying times. See most up-to-date schedule and sign up at [My Office Hours Booking Calendar](https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2L9fyZQGIucE3nQENRi76EvDHohK4-HwOUywMtTRmWn80KipGGUsjBaVkbKTrAl0t2Wa8Yt7Kn).
 
 ---
