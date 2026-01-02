@@ -80,23 +80,30 @@ result1 = slow_calculation(mtcars$mpg, delay_seconds = 2)
 end_time = Sys.time()
 cat("Synchronous took:", end_time - start_time, "seconds\n")
 
+
+
 # Now run it asynchronously using future()
-start_time = Sys.time()
 future_result = future({
-  slow_calculation(mtcars$mpg, delay_seconds = 2)
+  slow_calculation(mtcars$mpg, delay_seconds = 5)
 })
 # Notice: This returns immediately! The calculation is running in the background.
+value(future_result) # returns the result of the callback - or wait if not ready yet.
 
-# Do other work while it runs...
+
+# Let's try this again so we can see it better.
+# Run the next four lines of code all at once. (Or quickly in a row.)
+## --- Start callback
+future_result = future({ slow_calculation(mtcars$mpg, delay_seconds = 5) })
+## --- Do other work while it runs...
 cat("I can do other things while the future runs!\n")
 other_work = sum(mtcars$hp)
 cat("Sum of horsepower:", other_work, "\n")
-
+## --- Check result of callback
 # Now get the result (this will wait if not ready yet)
 result2 = value(future_result)
-end_time = Sys.time()
-cat("Asynchronous took:", end_time - start_time, "seconds\n")
-# The total time is similar, but we did other work during the wait!
+
+
+
 
 
 # 5. Asynchronous Callbacks with later() #######################################
@@ -140,7 +147,7 @@ future_result = process_data_async(mtcars$mpg, print_result)
 
 # Cleaning Up #######################################
 
-# Reset the future plan
+# Reset the future plan, so we aren't running in parallel mode.
 plan(sequential)
 
 # Clear your environment

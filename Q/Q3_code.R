@@ -57,11 +57,11 @@ head(mtcars)
 
 # Example: Calculate the mean of each numeric column in mtcars
 
-# First, let's select just the numeric columns
+# First, let's select just the numeric columns as a data.frame using dplyr's select() function
 numeric_cols = mtcars %>%
   select(where(is.numeric))
 
-# Now use map() to calculate the mean of each column
+# Now use map() to calculate the mean of each column. The map() function is from the purrr package.
 means = map(.x = numeric_cols, .f = mean)
 
 # Let's see what we got
@@ -269,4 +269,5 @@ rm(list = ls())
 #
 # The purrr package makes iteration cleaner and more powerful than traditional loops.
 # Practice using map() and map_dfr() to make your code more elegant and efficient!
+
 
