@@ -1,42 +1,44 @@
-# P1_code.R
+# P1_code.py
 # Exercise: Maximum Likelihood Estimation
 # Prof. Tim Fraser
 
-# This tutorial will introduce you to Fitting Distribution Parameters in R, 
-# teaching you how to use the fitdistr() function from the MASS package in R.
+# This tutorial will introduce you to Fitting Distribution Parameters in Python, 
+# teaching you how to use distribution fitting functions from the scipy.stats 
+# package in Python.
 #
 # This training continues on our previous work on Descriptive Statistics. 
 # Often, we might want to approximate statistics describing the shape of 
 # distributions, but there may not be a clear analytical method (eg. method 
 # of moments) to do so. We can use the power of optimization to help us 
 # instead, using a brute-force method to find the value most likely to be the 
-# statistic that actually fits our distribution. We can ask R to compute the 
-# values of those statistics using the MASS package's fitdistr().
+# statistic that actually fits our distribution. We can ask Python to compute the 
+# values of those statistics using the scipy.stats package's distribution 
+# fitting methods.
 #
 # Please open up your project on Posit.Cloud, for our Github class repository
-# (https://github.com/timothyfraser/sysen). Start a new R script 
-# (File >> New >> R Script). Save the R script as P1_code.R. And let's get started!
+# (https://github.com/timothyfraser/sysen). Start a new Python script 
+# (File >> New >> Python Script). Save the Python script as P1_code.py. 
+# And let's get started!
 
-# install.packages(c("dplyr", "MASS"))
+# !pip install scipy numpy pandas matplotlib
 
 
 # 1. Getting Started #######################################
 
-# Load dplyr, which contains most data wrangling functions
-library(dplyr)
-
-# Load the fitdistr() function directly from the MASS package. 
-# We'll do this, rather than loading the whole MASS package, because MASS 
-# will cancel out some dplyr functions that share the same names otherwise. 
-# See how fitdistr has now shown up in your environment as a function?
-fitdistr = MASS::fitdistr
+# Import necessary libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats
+from scipy.optimize import minimize, minimize_scalar
 
 # As our raw data, let's use our vector of seawall heights sw. 
 # Its raw distribution can be visualized with hist(sw).
 
 # Let's remake again our vector of seawall heights
-sw <- c(4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4)
-hist(sw)
+sw = [4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4]
+plt.hist(sw)
+plt.show()
 
 
 # 2. Example: Exponential Distribution #######################################
@@ -67,96 +69,110 @@ hist(sw)
 # parameter - rate (also known as lambda), describing 1/mean.
 #
 # Let's calculate the rate parameter a few ways, using (1) the method of 
-# moments, (2) maximum likelihood estimation (MLE) using fitdistr(), and 
-# (3) maximum likelihood estimation (MLE) using optim().
+# moments, (2) maximum likelihood estimation (MLE) using scipy.stats.expon.fit(), 
+# and (3) maximum likelihood estimation (MLE) using scipy.optimize.
 
 
 # 2.1. Method of Moments #######################################
 
 # Let's use the method of moments to find the inverse mean
-1 / (sum(sw) / length(sw))
+1 / (sum(sw) / len(sw))
 # Equivalent to...
-1 / mean(sw)
+1 / np.mean(sw)
 
 
-# 2.2. MLE with fitdistr() #######################################
+# 2.2. MLE with scipy.stats.expon.fit() #######################################
 
-# Let's ask fitdistr to run maximum likelihood estimation.
+# Let's ask scipy.stats.expon.fit() to run maximum likelihood estimation.
 #
 # Maximum likelihood estimation requires a benchmark distribution to compare 
-# against, so we need to specify the distribution type as densfun = [type name]. 
-# In this case, let's do exponential. (See a list of supported distributions using 
-# ?MASS::fitdistr)
+# against, so we need to specify the distribution type. In this case, let's do 
+# exponential. (See scipy.stats documentation for other supported distributions)
 
-sw %>% MASS::fitdistr(densfun = "exponential")
+# Note: scipy.stats.expon.fit() returns parameters in a different format than R's fitdistr
+# For exponential, it returns (loc, scale) where scale = 1/rate
+# We'll extract the scale parameter and convert to rate
+params = stats.expon.fit(sw, floc=0)  # floc=0 fixes location at 0
+rate_estimate = 1 / params[1]  # params[1] is the scale parameter
+print(f"Rate parameter (lambda): {rate_estimate}")
+print(f"Full parameters (loc, scale): {params}")
 
 # Pretty darn similar to the value we got from the method of moments, right?
 
 
-# 2.3. MLE with optim() #######################################
+# 2.3. MLE with scipy.optimize #######################################
 
 # Alternatively, we could run maximum likelihood estimation manually, using 
-# optim(). optim() is R's built in optimization function. We'll learn maximum 
-# likelihood estimation a little more later in the book. The key idea is this:
+# scipy.optimize. scipy.optimize is Python's built in optimization function. 
+# We'll learn maximum likelihood estimation a little more later in the book. 
+# The key idea is this:
 #
-# dexp(x = 2, rate = 0.1) gives the probability of the value x = 2 showing up 
-# in an exponential distribution characterized by a parameter rate = 0.1.
+# stats.expon.pdf(x = 2, scale = 1/0.1) gives the probability of the value 
+# x = 2 showing up in an exponential distribution characterized by a parameter 
+# rate = 0.1 (where scale = 1/rate).
 
-dexp(x = 2, rate = 0.1)
+stats.expon.pdf(2, scale=1/0.1)
 
-# dexp(x = sw, rate = 0.1) gives the probabilities for each value of x if they 
-# showed up in an exponential distribution characterized by a parameter 
-# rate = 0.1.
+# stats.expon.pdf(x = sw, scale = 1/0.1) gives the probabilities for each value 
+# of x if they showed up in an exponential distribution characterized by a 
+# parameter rate = 0.1.
 
-# You can also pipe the values of x into dexp() like this
-sw %>% dexp(rate = 0.1)
+# You can compute the probabilities for all values in sw like this
+stats.expon.pdf(sw, scale=1/0.1)
 
 # The joint probability of these values of x occurring together is called the 
-# likelihood. We can take the product using prod().
+# likelihood. We can take the product using np.prod().
 
 # Let's get the likelihood of these values...
-sw %>% dexp(rate = 0.1) %>% prod()
+np.prod(stats.expon.pdf(sw, scale=1/0.1))
 
 # Likelihood tend to be very small numbers, so a helpful trick is to calculate 
 # the log-likelihood instead, meaning the sum of logged probabilities.
 
 # See how these two processes produce the same output?
 # Get the log of probabilities multiplied together...
-sw %>% dexp(rate = 0.1) %>% prod() %>% log()
+np.log(np.prod(stats.expon.pdf(sw, scale=1/0.1)))
 # Get the sum of logged probabilities...
-sw %>% dexp(rate = 0.1) %>% log() %>% sum()
+np.sum(np.log(stats.expon.pdf(sw, scale=1/0.1)))
 # They're equivalent
 
 # Then, we write up a short function called loglikelihood(), including two 
 # inputs (1) par and (2) our data x. I added an example value 0.1 to par just 
 # as a reminder for what it means.
 
-loglikelihood = function(par = 0.1, x){ 
-  dexp(x = x, rate = par) %>% log() %>% sum()   
-}
+def loglikelihood(par, x):
+    # par is the rate parameter, scale = 1/par
+    return np.sum(np.log(stats.expon.pdf(x, scale=1/par)))
+
 # Try it!
-loglikelihood(par = 0.1, x = sw)
+loglikelihood(0.1, sw)
 
-# Finally, we run an optimizer using optim(), supplying a starting value for 
-# search par = 0.1, our raw data x, and our function loglikelihood. We want to 
-# maximize the loglikelihood, but optim() minimizes by default, so we'll say, 
-# control = list(fnscale = -1) to flip the scale.
+# Finally, we run an optimizer using minimize_scalar(), supplying a starting 
+# value for search and our function loglikelihood. We want to maximize the 
+# loglikelihood, but minimize_scalar() minimizes by default, so we'll use 
+# method='brent' and negate our function to maximize it.
 
-optim(par = c(0.1), x = sw, fn = loglikelihood, control = list(fnscale = -1))
+# Note: We need to minimize the negative log-likelihood to maximize the log-likelihood
+result = minimize_scalar(lambda par: -loglikelihood(par, sw), 
+                         bounds=(0.001, 10), 
+                         method='bounded')
+print(result)
 
-# Compare the final parameter value against fitdistr's results! They're about 
-# the same.
+# Compare the final parameter value against scipy.stats.expon.fit()'s results! 
+# They're about the same.
 
-fitdistr(x = sw, densfun = "exponential")
+params = stats.expon.fit(sw, floc=0)
+rate_estimate = 1 / params[1]
+print(f"Rate parameter from fit(): {rate_estimate}")
 
 # Voila! You made your own maximum likelihood estimator manually. Certainly, 
-# optim() was a little more time consuming, but now you know how fitdistr truly 
-# works inside!
+# scipy.optimize was a little more time consuming, but now you know how 
+# distribution fitting truly works inside!
 
 
 # 3. Applications #######################################
 
-# Let's try applying the same general approach with fitdistr to other 
+# Let's try applying the same general approach with scipy.stats to other 
 # distributions.
 
 
@@ -167,10 +183,12 @@ fitdistr(x = sw, densfun = "exponential")
 # a mean and a sd.
 
 # Method of Moments
-sw %>% mean()
-sw %>% sd()
+np.mean(sw)
+np.std(sw, ddof=1)  # ddof=1 for sample standard deviation
 # Maximum Likelihood Estimation
-sw %>% fitdistr(densfun = "normal")
+# stats.norm.fit() returns (loc, scale) where loc=mean and scale=std
+params_norm = stats.norm.fit(sw)
+print(f"Normal distribution parameters (mean, std): {params_norm}")
 
 
 # 3.2. Poisson Distribution #######################################
@@ -180,9 +198,11 @@ sw %>% fitdistr(densfun = "normal")
 # a lambda parameter describing the mean.
 
 # Method of moments
-sw %>% mean()
+np.mean(sw)
 # Maximum Likelihood Estimation
-sw %>% fitdistr(densfun = "poisson")
+# stats.poisson.fit() returns (mu,) where mu is the lambda parameter
+params_pois = stats.poisson.fit(sw, floc=0)
+print(f"Poisson distribution parameter (lambda): {params_pois[0]}")
 
 
 # 3.3. Gamma Distribution #######################################
@@ -195,13 +215,15 @@ sw %>% fitdistr(densfun = "poisson")
 # Method of Moments
 # For shape, we want the rate of how much greater the mean-squared is than 
 # the variance.
-mean(sw)^2 / var(sw)
+np.mean(sw)**2 / np.var(sw, ddof=1)
 
-# For rate, we like to get the inverse of the variance divided by the mean.
-1 / (var(sw) / mean(sw) )
+# For scale, we like to get the variance divided by the mean.
+np.var(sw, ddof=1) / np.mean(sw)
 
 # Maximum Likelihood Estimation
-sw %>% fitdistr(densfun = "gamma")
+# stats.gamma.fit() returns (a, loc, scale) where a is the shape parameter
+params_gamma = stats.gamma.fit(sw, floc=0)
+print(f"Gamma distribution parameters (shape, scale): ({params_gamma[0]}, {params_gamma[2]})")
 
 
 # 3.4. Weibull Distribution #######################################
@@ -212,7 +234,9 @@ sw %>% fitdistr(densfun = "gamma")
 # of moments here right now.)
 
 # Estimate the shape and scale parameters for a weibull distribution
-sw %>% fitdistr(densfun = "weibull")
+# stats.weibull_min.fit() returns (c, loc, scale) where c is the shape parameter
+params_weibull = stats.weibull_min.fit(sw, floc=0)
+print(f"Weibull distribution parameters (shape, scale): ({params_weibull[0]}, {params_weibull[2]})")
 
 
 # 4. Learning Check 1 #######################################
@@ -223,7 +247,8 @@ sw %>% fitdistr(densfun = "weibull")
 # Ithaca Downtown. A sample of 10 students each reported the number of corgis 
 # they saw last Tuesday in town. Calculate the statistics summarizing each 
 # distribution, if it were a normal, poisson, exponential, gamma, or weibull 
-# distribution. Please use fitdistr for all your calculations.
+# distribution. Please use scipy.stats distribution fitting methods for all 
+# your calculations.
 #
 # Beth saw 5, Javier saw 1, June saw 10(!), Tim saw 3, Melanie saw 4, 
 # Mohammad saw 3, Jenny say 6, Yosuke saw 4, Jimena saw 5, and David saw 2.
@@ -235,25 +260,35 @@ sw %>% fitdistr(densfun = "weibull")
 # First, let's make the data.
 
 # Make distribution of Corgis
-corgi <- c(5, 1, 10, 3, 4, 3, 6, 4, 5, 2)
+corgi = [5, 1, 10, 3, 4, 3, 6, 4, 5, 2]
 
 # Next, let's compute the estimated statistics using maximum likelihood 
 # estimation.
 
 # Compute statistics for each distributions
-corgi %>% fitdistr(densfun = "normal")
-corgi %>% fitdistr(densfun = "poisson")
-corgi %>% fitdistr(densfun = "exponential")
-corgi %>% fitdistr(densfun = "gamma")
-corgi %>% fitdistr(densfun = "weibull")
+print("Normal distribution:")
+print(stats.norm.fit(corgi))
+print("\nPoisson distribution:")
+print(f"Lambda: {stats.poisson.fit(corgi, floc=0)[0]}")
+print("\nExponential distribution:")
+exp_params = stats.expon.fit(corgi, floc=0)
+print(f"Rate (lambda): {1/exp_params[1]}")
+print("\nGamma distribution:")
+gamma_params = stats.gamma.fit(corgi, floc=0)
+print(f"Shape: {gamma_params[0]}, Scale: {gamma_params[2]}")
+print("\nWeibull distribution:")
+weibull_params = stats.weibull_min.fit(corgi, floc=0)
+print(f"Shape: {weibull_params[0]}, Scale: {weibull_params[2]}")
 
 
 # 5. Conclusion #######################################
 
-# Congratulations! You now know how to use fitdistr() to approximate the 
-# parameters for a dataset, assuming various different types of distributions. 
-# You also learned maximum likelihood estimation, the core technique underneath 
-# fitdistr(), and how to perform it manually using optim(). Great work!
+# Congratulations! You now know how to use scipy.stats distribution fitting 
+# methods to approximate the parameters for a dataset, assuming various 
+# different types of distributions. You also learned maximum likelihood 
+# estimation, the core technique underneath these fitting methods, and how to 
+# perform it manually using scipy.optimize. Great work!
 
 # Clean up workspace (optional)
-rm(list = ls())
+# Note: In Python, you can use del to remove variables, or just restart the kernel
+globals().clear()
