@@ -6,20 +6,29 @@ Module O covers probability distributions, including discrete and continuous dis
 
 ## Table of Contents
 
-- (Code files will be added here when available)
+- 💻 [O1_code.R](O1_code.R)
+- 💻 [O1_code.py](O1_code.py)
+- 💻 [O2_code.R](O2_code.R)
+- 💻 [O2_code.py](O2_code.py)
+- 💻 [distributions.py](distributions.py)
 
 ---
 
 ## Links
 
 - **Lessons**
+    - 🎥 [Watch: Lesson O1 - Distributions (Hand Drawn)](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=bd3b756f-20aa-4421-8df2-b265014337c4)
     - 📊 [Drawing: Lesson O1 - Probability Distributions Quickstart](https://drive.google.com/file/d/1uNvU1zoKYoUqHc1ioiro2knY5bWe7iEG/view?usp=sharing)
+    - 🎥 [Watch: Lesson O2.1 - Simulating Probability Distributions](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9a6e7b1b-39aa-429e-a6d8-b26900047360)
+    - 🎥 [Watch: Lesson O3.1 - Theory of Probability Distributions](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=1b7e49e3-4bc2-400b-875c-b268018944e6)
 - **Activities**
-    - (Activities will be added here)
+    - 🎯 [Activity: O1_code.R - Probability Distributions in R](https://github.com/timothyfraser/stats_bootcamp/tree/main/O/O1_code.R)
+    - 🎯 [Activity: O1_code.py - Probability Distributions in Python](https://github.com/timothyfraser/stats_bootcamp/tree/main/O/O1_code.py)
+    - 🎯 [Activity: O2_code.R - Simulating Probability Distributions in R](https://github.com/timothyfraser/stats_bootcamp/tree/main/O/O2_code.R)
+    - 🎯 [Activity: O2_code.py - Simulating Probability Distributions in Python](https://github.com/timothyfraser/stats_bootcamp/tree/main/O/O2_code.py)
+    - 🎯 [Activity: distributions.py - Distribution Functions](https://github.com/timothyfraser/stats_bootcamp/tree/main/O/distributions.py)
 - **Learning Checks**
-    - (Learning checks will be added here)
-- **Resources**
-    - (Resources will be added here)
+    - ✅ [Quiz: Probability Distributions](https://canvas.cornell.edu/courses/75015/modules/items/2993021)
 
 ---
 
