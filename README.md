@@ -94,7 +94,7 @@ end
 subgraph p4["Path 4: Data Science for Statistics"]
     Q["<b>Q</b><br>Functions, Iteration,<br>Loops, & Callbacks"]
     R["<b>R</b><br>Github for<br>Data Science"]
-    S["<b>S</b><br>..."]
+    S["<b>S</b><br>Calculus with Statistical Coding!"]
 end
 
 subgraph p3["Path 3: Math for Statistics"]
