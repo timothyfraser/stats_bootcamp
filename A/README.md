@@ -33,7 +33,6 @@ Module A introduces statistical coding using R or Python for students with zero 
             - 🎯 [Activity: A1_code.py - Intro to Coding in Python](https://github.com/timothyfraser/stats_bootcamp/tree/main/A/A1_code.py)
 - **Learning Checks**
     - ✅ [Quiz: Statistical Coding](https://canvas.cornell.edu/courses/75015/modules/items/2909825)
-    - 🔍 [Review: Quiz Solutions - Statistical Coding](https://canvas.cornell.edu/courses/75015/modules/items/2937592)
 - **Resources**
     - 🎥 [(Optional) Watch: Setup Free Google Colab for Coding in Python [only if you prefer it to Posit Cloud]](https://youtu.be/vuFTrylVwno?si=Ksh0cnFIjpNcyaX4)
     - 🎯 [(Optional) Activity: Signup for Google Colabs (for Python only) [only if you prefer it to Posit Cloud]](https://colab.research.google.com/)
