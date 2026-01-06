@@ -12,7 +12,7 @@ The **Statistical Coding and Probability Certificate** is awarded by the Cornell
 
 To earn the Statistical Coding and Probability Certificate, you must meet the following requirements:
 
-1. ✅ Complete **at least 15 modules** from the qualifying modules list (see below), in `R` or `Python`.
+1. ✅ Complete **at least 10 modules** from the qualifying modules list (see below), in `R` or `Python`.
    - ✅ **Fully pass** the quiz for each of your completed modules
    - ✅ You may retake quizzes **as many times as needed** until you pass
 2. ⏰ **Critical**: All of your chosen modules must be completed **WITHIN the official 2-week bootcamp time frame**.
@@ -46,9 +46,9 @@ The following modules count toward your certificate:
 - 🔢 **O. Probability Distributions**
 - ↕️ **P. Optimization**
 - 🔄 **Q. Functions, Iteration, Loops, and Callbacks**
-- 📦 **R. Using GitHub for Version Control**
+- 📦 **S. Calculus with Statistical Coding**
 
-> **Note**: "Getting Started" and "Q. TBD" do not count toward certificate requirements.
+> **Note**: "Getting Started" does not count toward certificate requirements.
 
 ---
 
