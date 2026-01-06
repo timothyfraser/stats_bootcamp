@@ -34,8 +34,11 @@
 # Let's learn to use Python!
 
 # Upgrade pip
-# !/opt/python/3.8.17/bin/python3.8 -m pip install --upgrade pip
-#
+# Setup a virtual environment and install pip, the package manager
+# Note: use THIS CODE, not the one in the video.
+!python3 -m venv venv
+!venv/bin/python -m pip install --upgrade pip
+
 # Install main python packages for this course
 # !pip install pandas
 # !pip install scipy
