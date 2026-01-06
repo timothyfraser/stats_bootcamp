@@ -36,8 +36,8 @@
 # Upgrade pip
 # Setup a virtual environment and install pip, the package manager
 # Note: use THIS CODE, not the one in the video.
-!python3 -m venv venv
-!venv/bin/python -m pip install --upgrade pip
+# !python3 -m venv venv
+# !venv/bin/python -m pip install --upgrade pip
 
 # Install main python packages for this course
 # !pip install pandas
