@@ -46,8 +46,11 @@ hist(sw)
 # an analytical approach (method of moments) and a brute-force approach 
 # (maximum likelihood estimation).
 #
-# - In the analytical approach (method of moments), which we learned in the 
-#   main textbook, we use formula that have been derived by mathematicians to 
+# PDF = f(t) = lambda * e^(-lambda * t)
+# lambda = inverse mean = rate
+# 
+# - In the analytical approach (method of moments), 
+#   we may use formula that have been derived by mathematicians to 
 #   describe the parameters of a particular distribution.
 #
 # - In the brute-force approach (maximum likelihood estimation), we use a 
@@ -88,6 +91,7 @@ hist(sw)
 # In this case, let's do exponential. (See a list of supported distributions using 
 # ?MASS::fitdistr)
 
+# f(t) = lambda * exp(-t*lambda)
 sw %>% MASS::fitdistr(densfun = "exponential")
 
 # Pretty darn similar to the value we got from the method of moments, right?
@@ -96,13 +100,14 @@ sw %>% MASS::fitdistr(densfun = "exponential")
 # 2.3. MLE with optim() #######################################
 
 # Alternatively, we could run maximum likelihood estimation manually, using 
-# optim(). optim() is R's built in optimization function. We'll learn maximum 
-# likelihood estimation a little more later in the book. The key idea is this:
+# optim(). optim() is R's built in optimization function. The key idea is this:
 #
 # dexp(x = 2, rate = 0.1) gives the probability of the value x = 2 showing up 
 # in an exponential distribution characterized by a parameter rate = 0.1.
 
+# f(t) = lambda * exp(-t*lambda)
 dexp(x = 2, rate = 0.1)
+# 0.1 * exp(-2*0.1)
 
 # dexp(x = sw, rate = 0.1) gives the probabilities for each value of x if they 
 # showed up in an exponential distribution characterized by a parameter 
@@ -136,6 +141,13 @@ loglikelihood = function(par = 0.1, x){
 }
 # Try it!
 loglikelihood(par = 0.1, x = sw)
+loglikelihood(par = 0.18, x = sw)
+loglikelihood(par = 0.2, x = sw)
+loglikelihood(par = 0.3, x = sw)
+loglikelihood(par = 0.21, x = sw)
+loglikelihood(par = 0.22, x = sw)
+loglikelihood(par = 0.3, x = sw)
+
 
 # Finally, we run an optimizer using optim(), supplying a starting value for 
 # search par = 0.1, our raw data x, and our function loglikelihood. We want to 
