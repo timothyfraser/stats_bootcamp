@@ -15,7 +15,8 @@ To earn the Statistical Coding and Probability Certificate, you must meet the fo
 1. ✅ Complete **at least 10 modules** from the qualifying modules list (see below), in `R` or `Python`.
    - ✅ **Fully pass** the quiz for each of your completed modules
    - ✅ You may retake quizzes **as many times as needed** until you pass
-2. ⏰ **Critical**: All of your chosen modules must be completed **WITHIN the official 2-week bootcamp time frame**.
+2. ✅ Complete the anonymous **Feedback Survey** in Module Z.
+3. ⏰ **Critical**: All of your chosen modules must be completed **WITHIN the official 2-week bootcamp time frame**.
   - 📅 Modules completed **after the bootcamp ends** are valuable for your learning but **do not count** toward certificate eligibility
   - 🎯 Plan your module selection and pacing to ensure you finish within the bootcamp period.
 
@@ -47,6 +48,11 @@ The following modules count toward your certificate:
 - ↕️ **P. Optimization**
 - 🔄 **Q. Functions, Iteration, Loops, and Callbacks**
 - 📦 **S. Calculus with Statistical Coding**
+
+The following module MUST be completed for your certificate, but does not count towards your 10 modules.
+
+- 🧮 **Z. Bootcamp End**
+
 
 > **Note**: "Getting Started" does not count toward certificate requirements.
 
