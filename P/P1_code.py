@@ -48,8 +48,8 @@ plt.show()
 # an analytical approach (method of moments) and a brute-force approach 
 # (maximum likelihood estimation).
 #
-# - In the analytical approach (method of moments), which we learned in the 
-#   main textbook, we use formula that have been derived by mathematicians to 
+# - In the analytical approach (method of moments), 
+#   we may use formula that have been derived by mathematicians to 
 #   describe the parameters of a particular distribution.
 #
 # - In the brute-force approach (maximum likelihood estimation), we use a 
@@ -92,6 +92,7 @@ plt.show()
 # Note: scipy.stats.expon.fit() returns parameters in a different format than R's fitdistr
 # For exponential, it returns (loc, scale) where scale = 1/rate
 # We'll extract the scale parameter and convert to rate
+
 params = stats.expon.fit(sw, floc=0)  # floc=0 fixes location at 0
 rate_estimate = 1 / params[1]  # params[1] is the scale parameter
 print(f"Rate parameter (lambda): {rate_estimate}")
@@ -104,7 +105,6 @@ print(f"Full parameters (loc, scale): {params}")
 
 # Alternatively, we could run maximum likelihood estimation manually, using 
 # scipy.optimize. scipy.optimize is Python's built in optimization function. 
-# We'll learn maximum likelihood estimation a little more later in the book. 
 # The key idea is this:
 #
 # stats.expon.pdf(x = 2, scale = 1/0.1) gives the probability of the value 
@@ -132,8 +132,10 @@ np.prod(stats.expon.pdf(sw, scale=1/0.1))
 # See how these two processes produce the same output?
 # Get the log of probabilities multiplied together...
 np.log(np.prod(stats.expon.pdf(sw, scale=1/0.1)))
+
 # Get the sum of logged probabilities...
 np.sum(np.log(stats.expon.pdf(sw, scale=1/0.1)))
+
 # They're equivalent
 
 # Then, we write up a short function called loglikelihood(), including two 
@@ -146,6 +148,11 @@ def loglikelihood(par, x):
 
 # Try it!
 loglikelihood(0.1, sw)
+loglikelihood(0.15, sw)
+loglikelihood(0.18, sw)
+loglikelihood(0.2, sw)
+loglikelihood(0.25, sw)
+loglikelihood(0.3, sw)
 
 # Finally, we run an optimizer using minimize_scalar(), supplying a starting 
 # value for search and our function loglikelihood. We want to maximize the 
@@ -191,21 +198,7 @@ params_norm = stats.norm.fit(sw)
 print(f"Normal distribution parameters (mean, std): {params_norm}")
 
 
-# 3.2. Poisson Distribution #######################################
-
-# What parameter values would best describe our distribution's shape, if this 
-# data were from a Poisson distribution? Remember, poisson distributions have 
-# a lambda parameter describing the mean.
-
-# Method of moments
-np.mean(sw)
-# Maximum Likelihood Estimation
-# stats.poisson.fit() returns (mu,) where mu is the lambda parameter
-params_pois = stats.poisson.fit(sw, floc=0)
-print(f"Poisson distribution parameter (lambda): {params_pois[0]}")
-
-
-# 3.3. Gamma Distribution #######################################
+# 3.2. Gamma Distribution #######################################
 
 # What parameter values would best describe our distribution's shape, if this 
 # data were from a Gamma distribution? Remember, gamma distributions have a 
@@ -226,7 +219,7 @@ params_gamma = stats.gamma.fit(sw, floc=0)
 print(f"Gamma distribution parameters (shape, scale): ({params_gamma[0]}, {params_gamma[2]})")
 
 
-# 3.4. Weibull Distribution #######################################
+# 3.3. Weibull Distribution #######################################
 
 # What parameter values would best describe our distribution's shape, if this 
 # data were from a Weibull distribution? Remember, weibull distributions have 
@@ -268,8 +261,6 @@ corgi = [5, 1, 10, 3, 4, 3, 6, 4, 5, 2]
 # Compute statistics for each distributions
 print("Normal distribution:")
 print(stats.norm.fit(corgi))
-print("\nPoisson distribution:")
-print(f"Lambda: {stats.poisson.fit(corgi, floc=0)[0]}")
 print("\nExponential distribution:")
 exp_params = stats.expon.fit(corgi, floc=0)
 print(f"Rate (lambda): {1/exp_params[1]}")
