@@ -17,11 +17,11 @@ Module E introduces sampling distributions, confidence intervals, and the centra
 
 - **Lessons**
     - 📊 [Slides: Lesson E1 - Sampling & Confidence Intervals](https://docs.google.com/presentation/d/1MlBYEwqAHLOFyDo694ZoavfmTqqSyRj_GPF_SbWHNGM/edit?usp=sharing)
-    - 🎥 [Watch: Lesson E1.1 - Sampling Distribution](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9717d6eb-d9ba-443f-84ad-b25e0029516d)
-    - 🎥 [Watch: Lesson E1.2 - Sampling in R](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2df6445a-1acf-4ac6-b4cb-b25e003003d0)
     - 🎥 [Watch: Lesson E1.3 - Sampling in Python](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=78d35685-faca-4eb6-aa52-b25f01804ec1)
 - **Activities**
     - 🎯 [Activity: E1_code.R - Sampling in R](https://github.com/timothyfraser/stats_bootcamp/tree/main/E/E1_code.R)
+    - 🎯 [Activity: Dashboard for Module E (Air Pollution in US Counties)](https://timfraser.shinyapps.io/environmental_health/)
+    - 🎯 [Activity: E.zip  (Upload me to Posit.Cloud to get code/data for this module!)](https://canvas.cornell.edu/courses/75015/modules/items/2929816)
     - 🎯 [Activity: E1_code.py - Sampling in Python](https://github.com/timothyfraser/stats_bootcamp/tree/main/E/E1_code.py)
 - **Learning Checks**
     - ✅ [Quiz: Sampling Distributions](https://canvas.cornell.edu/courses/75015/modules/items/2930271)
@@ -32,4 +32,5 @@ Module E introduces sampling distributions, confidence intervals, and the centra
 
 ---
 
+    - ✅ [Quiz: Optional: Extra tutorials on plotnine (ggplot for Python)](https://f0nzie.github.io/rmarkdown-python-plotnine/)
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

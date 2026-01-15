@@ -24,8 +24,6 @@ Module D introduces data wrangling techniques for cleaning, transforming, filter
 
 - **Lessons**
     - 📊 [Slides: Lesson D1 - Data Wrangling at Scale](https://docs.google.com/presentation/d/17dqBd2j3mrVDJE6h8v2i83b0uxLBZCNG7ksYTGGIjvE/edit?usp=sharing)
-    - 🎥 [Watch: Lesson D1.1 - Data Wrangling Concepts](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=008a2db5-f1d0-4072-86ab-b25b003102bb)
-    - 🎥 [Watch: Lesson D1.2 - Data Wrangling in R with dplyr](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=73ac1d6f-e7e9-422c-aa89-b25b00370f7c)
     - 🎥 [Watch: Lesson D1.3 - Data Wrangling in Python with pandas](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=3a48c578-33a1-4a44-96ef-b25b00400a07)
 - **Activities**
     - 🎯 [Activity: D1_code.R - Data Wrangling in R with dplyr](https://github.com/timothyfraser/stats_bootcamp/blob/main/D/D1_code.R)

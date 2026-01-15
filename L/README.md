@@ -16,9 +16,7 @@ Module L introduces prediction and simulation techniques for using regression mo
 
 - **Lessons**
     - 📊 [Slides: Lesson L1 - Prediction](https://docs.google.com/presentation/d/1AMqFnS487Y3DhjODO-MXm-1RL9l_8h9D7mjkrjjfjhI/edit?usp=sharing)
-    - 🎥 [Watch: Lesson L1.1 - Prediction and Simulating Uncertainty](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ee777f76-2300-451a-a750-b26501442ec2)
-    - 🎥 [Watch: Lesson L1.2 - Prediction and Simulation in R](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=fb62e09a-4e2d-4263-b46b-b2650161dc33)
-    - 🎥 [Watch: Lesson L1.3 - Prediction and Simulation in Python](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=878d5920-c135-4517-95eb-b265015ac9aa)
+    - 🎥 [Watch: Lesson 1.4 - Monte Carlo Simulations (handdrawn!)](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8a164112-44c1-4978-b4f7-b2650167bedb)
 - **Activities**
     - 🎯 [Activity: L1_code.R - Prediction in R](https://github.com/timothyfraser/stats_bootcamp/blob/main/L/L1_code.R)
     - 🎯 [Activity: L1_code.py - Prediction in Python](https://github.com/timothyfraser/stats_bootcamp/blob/main/L/L1_code.py)
@@ -29,4 +27,5 @@ Module L introduces prediction and simulation techniques for using regression mo
 
 ---
 
+    - 🎯 [Activity: L.zip (Upload me to Posit.Cloud to get code/data for this module!)](https://canvas.cornell.edu/courses/75015/modules/items/2967051)
 ← 🏠 [Back to Statistics Bootcamp Home](../README.md)

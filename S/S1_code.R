@@ -115,7 +115,7 @@ pdf2(3000)
 failure_pdf = function(t){  0.01 * exp(-0.01*t)  }
 
 # Integrate to get the CDF (probability of failure by time t)
-failure_cdf <- antiD(tilde = failure_pdf(t) ~ t)
+failure_cdf = antiD(tilde = failure_pdf(t) ~ t)
 
 # Calculate reliability function (probability of survival past time t)
 reliability = function(t){  1 - failure_cdf(t)  }

@@ -14,15 +14,18 @@ Module N introduces probability rules, set notation, counting principles, and pr
 
 - **Lessons**
     - 📊 [Slides: N1 - Math and Set Notation](https://canvas.cornell.edu/courses/75015/modules/items/2911791)
-    - 🎥 [Watch: Lesson N1.1 - Data Notation, Sets, and Probability Models](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4be5f940-0deb-4209-8381-b26701015b24)
-    - 🎥 [Watch: Lesson N1.2 - Set Operations and Set Notation](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2f1073a9-57c3-440b-ab41-b2670105c146)
-    - 🎥 [Watch: Lesson N1.3 - Set Notation with Many Events](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9967fd53-e356-4088-99e6-b267010b4877)
+    - 🎥 [Watch: Lesson N4.1 - Conditional Probability and Bayes' Rule](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d9b0a95b-809f-4885-a4a3-b2670177dda6)
     - 📊 [Slides: N2 - Counting](https://canvas.cornell.edu/courses/75015/modules/items/2911793)
-    - 🎥 [Watch: Lesson N2.1 - Counting and Combinations](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=e55e3b7e-5a53-43b8-8962-b2670161167e)
-    - 🎥 [Watch Lesson N2.2 - Sampling and Partitioning](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=589f71e8-1415-4e1a-8aad-b2670163ef59)
+    - 🎥 [Watch: Use: Set Theory Symbols](https://canvas.cornell.edu/courses/75015/modules/items/2981004)
+    - 📊 [Slides: N3 - Probability Rules](https://docs.google.com/presentation/d/1QJQs7431ZRRL04x7So9zDriuZzhXSSaPYy1Lufl3cvM/edit?usp=sharing)
+    - 📊 [Slides: N4 - Conditional Probability](https://docs.google.com/presentation/d/1I5iyeRF6WDHmN9RIkREiQcOWTPPnqdx1683UUhM9FAc/edit?usp=sharing)
 - **Activities**
     - (Activities will be added here)
 - **Learning Checks**
+    - ✅ [Quiz: Sets](https://canvas.cornell.edu/courses/75015/modules/items/2958873)
+    - ✅ [Quiz: Counting](https://canvas.cornell.edu/courses/75015/modules/items/2982206)
+    - ✅ [Quiz: Probability Rules & Conditional Probability](https://canvas.cornell.edu/courses/75015/modules/items/2984763)
+    - 🎥 [Watch: Intersection and Union of Sets (Khan Academy)](https://www.khanacademy.org/math/statistics-probability/probability-library/basic-set-ops/v/intersection-and-union-of-sets)
     - (Learning checks will be added here)
 - **Resources**
     - (Resources will be added here)

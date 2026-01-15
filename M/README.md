@@ -14,14 +14,14 @@ Module M covers calculus fundamentals for statistics, including algebra, derivat
 
 - **Lessons**
     - 📊 [Slides: Lesson M1 - Algebra](https://docs.google.com/presentation/d/1NCgFEqS-KJSFuByhv3nhwed6-1Xus7H3LOOwEbc8jt0/edit?usp=sharing)
-    - 🎥 [Watch: Lesson M1.1 - Algebra for Statistics](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=dd7faa83-7ee7-4135-b412-b26500fc2fbb)
+    - 🎥 [Watch: Lesson M3.2 - Definite Integrals and Friends](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8841910a-2395-439b-83dc-b2650118fa06)
     - 📊 [Slides: Lesson M2 - Derivatives](https://docs.google.com/presentation/d/1DDSMp1mlAux1b7AGFzNQ0DxXfaN1ah7zTZi6kka34SY/edit?usp=sharing)
-    - 🎥 [Watch: Lesson M2.1 - Definition of a Derivative](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=36e45a5b-3a12-4e2c-b71b-b26501046417)
-    - 🎥 [Watch: Lesson M2.2 - Learning Check on Derivatives](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=82a2d2ec-3803-4484-a1a0-b2650108f87b)
-    - 🎥 [Watch: Lesson M2.3 - Derivation Rules](https://cornell.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=208c1b11-3d4a-4370-beac-b265010a1e12)
+    - 📊 [Slides: Lesson M3 - Integrals](https://docs.google.com/presentation/d/1wpPXozO-illqyRdfqBcGdGoHEL3SPjYa7hDDg8rUHKY/edit?usp=sharing)
 - **Activities**
     - (Activities will be added here)
 - **Learning Checks**
+    - ✅ [Quiz: Calculus](https://canvas.cornell.edu/courses/75015/modules/items/2904310)
+    - ✅ [Quiz: (Optional) Watch: Derivatives (Khan Academy)](https://www.khanacademy.org/math/calculus-1/cs1-derivatives-definition-and-basic-rules/cs1-derivative-rules-constant-sum-difference-and-constant-multiple/v/derivative-properties-and-polynomial-derivatives)
     - (Learning checks will be added here)
 - **Resources**
     - (Resources will be added here)
